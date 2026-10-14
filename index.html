@@ -56,12 +56,12 @@ h3{font-size:clamp(1.35rem,2.2vw,1.65rem);line-height:1.05}
 .brand{display:block;flex:none}
 .brand img{width:168px;height:auto}
 .nav{display:flex;align-items:center;gap:26px}
-.nav a{font-family:var(--font-display);font-weight:600;font-size:1.08rem;letter-spacing:.05em;text-transform:uppercase;text-decoration:none;color:var(--on-dark-2)}
+.nav a{font-family:var(--font-display);font-weight:600;font-size:1.08rem;letter-spacing:.05em;text-transform:uppercase;text-decoration:none;color:var(--on-dark-2);white-space:nowrap}
 .nav a:hover,.nav a[aria-current="page"]{color:var(--on-dark)}
 .nav a[aria-current="page"]{box-shadow:inset 0 -2px 0 var(--orange)}
 .head-call{font-size:1.05rem;padding:.6em 1em;white-space:nowrap}
 .menu{display:none}
-@media (max-width:900px){
+@media (max-width:1140px){
   .nav,.head-call{display:none}
   .menu{display:block;position:relative}
   .menu summary{list-style:none;cursor:pointer;font-family:var(--font-display);font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:1.05rem;padding:.5em .85em;border:2px solid var(--line-dark);border-radius:2px;color:var(--on-dark)}
@@ -81,7 +81,7 @@ h3{font-size:clamp(1.35rem,2.2vw,1.65rem);line-height:1.05}
 .cta-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 @media (max-width:520px){.cta-row .btn{flex:1 1 100%}}
 .phone-plain{font-family:var(--font-mono);font-size:.95rem;color:var(--soil)}
-.proof{display:flex;flex-wrap:wrap;gap:8px 18px;padding-top:6px;border-top:1px solid var(--line);margin-top:4px}
+.proof{display:flex;flex-wrap:wrap;gap:8px 18px;padding:6px 0 0;border-top:1px solid var(--line);margin:4px 0 0}
 .proof li{list-style:none;display:flex;align-items:center;gap:7px;font-size:.92rem;font-weight:600;color:var(--ink)}
 .proof li svg{width:16px;height:16px;color:var(--orange-ink);flex:none}
 .proof ul{display:contents}
@@ -235,6 +235,36 @@ h3{font-size:clamp(1.35rem,2.2vw,1.65rem);line-height:1.05}
 .crumbs a{text-decoration:none}
 .crumbs a:hover{color:var(--orange-ink)}
 
+/* Price list (cost page) */
+.prices{display:grid;border-top:2px solid var(--ink);max-width:860px}
+.price{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:16px;align-items:baseline;padding:16px 0;border-bottom:1px solid var(--line)}
+.price .what{font-weight:600;line-height:1.35}
+.price .what small{display:block;font-weight:400;font-size:.9rem;color:var(--soil);margin-top:2px}
+.price .amt{font-family:var(--font-display);font-weight:800;font-size:clamp(1.25rem,2.4vw,1.65rem);line-height:1.05;text-align:right;font-variant-numeric:tabular-nums}
+.price-total{background:var(--paper);padding-inline:14px}
+.price-total .amt{color:var(--orange-ink)}
+.source{font-size:.86rem;color:var(--soil);margin-top:14px;max-width:860px}
+
+/* Rebate calculator */
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(20px,4vw,44px);align-items:start}
+.calc-form{display:grid;gap:18px;background:var(--paper);border-top:3px solid var(--orange);padding:clamp(18px,3vw,28px);min-width:0}
+.field{display:grid;gap:6px;min-width:0}
+.field label{font-weight:700;font-size:.98rem;line-height:1.3}
+.field .hint{font-size:.86rem;color:var(--soil)}
+.field select,.field input{font:inherit;font-size:1.05rem;padding:.6em .7em;border:2px solid var(--line);border-radius:2px;background:var(--concrete);color:var(--ink);width:100%;min-width:0}
+.field select:focus-visible,.field input:focus-visible{border-color:var(--ink)}
+.check{display:flex;gap:10px;align-items:center;font-weight:700;font-size:.98rem;cursor:pointer}
+.check input{width:20px;height:20px;margin:0;flex:none;accent-color:var(--orange-ink)}
+.calc-out{display:grid;gap:14px;background:var(--ink);color:var(--on-dark);padding:clamp(18px,3vw,28px);position:sticky;top:90px;min-width:0}
+.calc-out .label{color:var(--on-dark-2)}
+.calc-total{font-family:var(--font-display);font-weight:800;font-size:clamp(2.8rem,7vw,4.4rem);line-height:.9;color:var(--orange);font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.calc-lines{display:grid;border-top:1px solid var(--line-dark)}
+.calc-lines[hidden]{display:none}
+.calc-lines div{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line-dark);font-size:.94rem}
+.calc-lines b{font-variant-numeric:tabular-nums;white-space:nowrap}
+.calc-note{font-size:.88rem;color:var(--on-dark-2)}
+@media (max-width:860px){.calc{grid-template-columns:1fr}.calc-out{position:static}}
+
 /* Seasonal strip */
 .season{background:var(--slab);border-bottom:1px solid var(--line)}
 .season-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 20px;padding-block:12px;font-size:.95rem}
@@ -257,7 +287,7 @@ h3{font-size:clamp(1.35rem,2.2vw,1.65rem);line-height:1.05}
       <p class="label">Springville, Utah · Serving Utah County</p>
       <h1>Landscaping &amp; sprinkler repair <span class="hl">in Utah County</span></h1>
       <p class="lede">From a broken sprinkler head to a full low-water yard, Vessel Groundworks handles the repair, the dirt work and the finished landscape. Call or text Sergio directly for a free estimate.</p>
-      <div class="cta-row"><a class="btn btn-orange" href="tel:+13852318503"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>Call or text (385) 231-8503</a><a class="btn btn-line" href="#work">See our work</a></div>
+      <div class="cta-row"><a class="btn btn-orange" href="tel:+13852318503"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>Call or text (385) 231-8503</a><a class="btn btn-line" href="sms:+13852318503"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 3h16a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 1-2zm3 6v2h10V9zm0 4v2h7v-2z"/></svg>Text a photo of your yard</a></div>
       <ul class="proof"><li><span class="stars" aria-hidden="true">★★★★★</span> 5.0 · 20 Google reviews</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>Free estimates</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>Same-day response</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>Hablamos español</li></ul>
     </div>
     <figure class="hero-photo" style="margin:0">
@@ -340,7 +370,7 @@ h3{font-size:clamp(1.35rem,2.2vw,1.65rem);line-height:1.05}
       <h2 id="rebate-h">Utah may pay you to replace your lawn</h2>
       <p class="lede">Utah County homeowners can get paid to replace lawn with water-wise landscaping through Central Utah Water's Landscape Incentive Program. The rate depends on your town.</p>
       <p>Two rules matter most. The program has to visit and approve the project before any grass comes out, and half the new area has to be planted, so a rock-only yard won't qualify. In towns with secondary water, those site visits pause from October 15 to April 15. Winter is the time to plan: we'll measure, photograph and draw the plan you need, so you can apply first thing in spring.</p>
-      <p><a class="btn btn-line" href="https://www.utahwatersavers.com/program-eligibility-page" target="_blank" rel="noopener">Check your city on Utah Water Savers</a></p>
+      <div class="cta-row"><a class="btn btn-orange" href="/xeriscaping-cost-utah-county#rebate-calculator">Estimate your rebate</a><a class="btn btn-line" href="https://www.utahwatersavers.com/program-eligibility-page" target="_blank" rel="noopener">Check your city on Utah Water Savers</a></div>
     </div>
     <div>
       <div class="rates" role="table" aria-label="Rebate amounts by town">
@@ -388,6 +418,7 @@ h3{font-size:clamp(1.35rem,2.2vw,1.65rem);line-height:1.05}
     <div class="section-head"><p class="label">Questions</p><h2 id="faq-h">Common questions</h2></div>
     <div class="faq"><details><summary>What services does Vessel Groundworks offer?</summary><p>Sprinkler repair and irrigation, xeriscaping and low-water landscaping, and excavation work like grading, trenching, drainage, concrete prep and retaining wall prep.</p></details><details><summary>Do you take small jobs as well as big projects?</summary><p>Yes. We handle everything from a single broken sprinkler head to full landscape installs and multi-phase excavation projects.</p></details><details><summary>What areas do you serve?</summary><p>We're based in Springville and work across Utah County, including Mapleton, Spanish Fork, Salem, Payson, Provo and Orem. Larger projects can go anywhere along the Wasatch Front. Outside that? Text us and ask.</p></details><details><summary>Do you specialize in water-efficient landscaping?</summary><p>Yes. Rock work, drought-tolerant planting, drip irrigation, grading and edging are a big part of what we do, and we can explain how Utah's lawn-replacement rebate works.</p></details><details><summary>Can you do the groundwork before landscaping or concrete?</summary><p>Yes. We do the excavation, grading, trenching, drainage and prep so the finished landscape or concrete starts on a solid, level base.</p></details><details><summary>Are estimates free?</summary><p>Yes. Call or text and we'll set up a time to look at the job. You get a clear price before any work starts.</p></details></div>
   </div>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What services does Vessel Groundworks offer?","acceptedAnswer":{"@type":"Answer","text":"Sprinkler repair and irrigation, xeriscaping and low-water landscaping, and excavation work like grading, trenching, drainage, concrete prep and retaining wall prep."}},{"@type":"Question","name":"Do you take small jobs as well as big projects?","acceptedAnswer":{"@type":"Answer","text":"Yes. We handle everything from a single broken sprinkler head to full landscape installs and multi-phase excavation projects."}},{"@type":"Question","name":"What areas do you serve?","acceptedAnswer":{"@type":"Answer","text":"We're based in Springville and work across Utah County, including Mapleton, Spanish Fork, Salem, Payson, Provo and Orem. Larger projects can go anywhere along the Wasatch Front. Outside that? Text us and ask."}},{"@type":"Question","name":"Do you specialize in water-efficient landscaping?","acceptedAnswer":{"@type":"Answer","text":"Yes. Rock work, drought-tolerant planting, drip irrigation, grading and edging are a big part of what we do, and we can explain how Utah's lawn-replacement rebate works."}},{"@type":"Question","name":"Can you do the groundwork before landscaping or concrete?","acceptedAnswer":{"@type":"Answer","text":"Yes. We do the excavation, grading, trenching, drainage and prep so the finished landscape or concrete starts on a solid, level base."}},{"@type":"Question","name":"Are estimates free?","acceptedAnswer":{"@type":"Answer","text":"Yes. Call or text and we'll set up a time to look at the job. You get a clear price before any work starts."}}]}</script>
 </section>
 </main>
 
@@ -402,7 +433,7 @@ h3{font-size:clamp(1.35rem,2.2vw,1.65rem);line-height:1.05}
     <div class="foot-grid">
       <div class="foot-brand"><img src="images/logo-white-480.png" width="480" height="145" alt="Vessel Groundworks" loading="lazy"><p>Landscaping, sprinkler repair, xeriscaping and excavation in Springville and across Utah County.</p></div>
       <div><h4>Contact</h4><ul><li><a href="tel:+13852318503">(385) 231-8503</a></li><li><a href="mailto:sergio@vesselgroundworks.com">sergio@vesselgroundworks.com</a></li><li>Mon–Sat, 8am–6pm</li><li>Se habla español</li></ul></div>
-      <div><h4>Services</h4><ul><li><a href="/sprinkler-repair-in-utah-county">Sprinkler repair</a></li><li><a href="/sprinkler-blowout-in-utah-county">Blowouts</a></li><li><a href="/xeriscaping-in-utah-county">Xeriscaping</a></li><li><a href="/excavation-in-utah-county">Excavation</a></li><li><a href="https://www.google.com/maps?cid=12567048390870205497" target="_blank" rel="noopener">Google reviews</a></li></ul></div>
+      <div><h4>Services</h4><ul><li><a href="/sprinkler-repair-in-utah-county">Sprinkler repair</a></li><li><a href="/sprinkler-blowout-in-utah-county">Blowouts</a></li><li><a href="/xeriscaping-in-utah-county">Xeriscaping</a></li><li><a href="/excavation-in-utah-county">Excavation</a></li><li><a href="/xeriscaping-cost-utah-county">Xeriscaping costs</a></li><li><a href="https://www.google.com/maps?cid=12567048390870205497" target="_blank" rel="noopener">Google reviews</a></li></ul></div>
       <div><h4>Areas</h4><ul><li>Springville</li><li>Mapleton</li><li>Spanish Fork</li><li>Salem</li><li>Payson</li><li>Provo</li><li>Orem</li></ul></div>
     </div>
     <div class="foot-legal"><span>© 2026 Vessel Groundworks · Springville, Utah</span><span><a href="https://www.facebook.com/vesselgroundworks" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.instagram.com/vesselgroundworks" target="_blank" rel="noopener">Instagram</a></span></div>

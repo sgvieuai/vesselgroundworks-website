@@ -56,12 +56,12 @@ h3{font-size:clamp(1.35rem,2.2vw,1.65rem);line-height:1.05}
 .brand{display:block;flex:none}
 .brand img{width:168px;height:auto}
 .nav{display:flex;align-items:center;gap:26px}
-.nav a{font-family:var(--font-display);font-weight:600;font-size:1.08rem;letter-spacing:.05em;text-transform:uppercase;text-decoration:none;color:var(--on-dark-2)}
+.nav a{font-family:var(--font-display);font-weight:600;font-size:1.08rem;letter-spacing:.05em;text-transform:uppercase;text-decoration:none;color:var(--on-dark-2);white-space:nowrap}
 .nav a:hover,.nav a[aria-current="page"]{color:var(--on-dark)}
 .nav a[aria-current="page"]{box-shadow:inset 0 -2px 0 var(--orange)}
 .head-call{font-size:1.05rem;padding:.6em 1em;white-space:nowrap}
 .menu{display:none}
-@media (max-width:900px){
+@media (max-width:1140px){
   .nav,.head-call{display:none}
   .menu{display:block;position:relative}
   .menu summary{list-style:none;cursor:pointer;font-family:var(--font-display);font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:1.05rem;padding:.5em .85em;border:2px solid var(--line-dark);border-radius:2px;color:var(--on-dark)}
@@ -81,7 +81,7 @@ h3{font-size:clamp(1.35rem,2.2vw,1.65rem);line-height:1.05}
 .cta-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 @media (max-width:520px){.cta-row .btn{flex:1 1 100%}}
 .phone-plain{font-family:var(--font-mono);font-size:.95rem;color:var(--soil)}
-.proof{display:flex;flex-wrap:wrap;gap:8px 18px;padding-top:6px;border-top:1px solid var(--line);margin-top:4px}
+.proof{display:flex;flex-wrap:wrap;gap:8px 18px;padding:6px 0 0;border-top:1px solid var(--line);margin:4px 0 0}
 .proof li{list-style:none;display:flex;align-items:center;gap:7px;font-size:.92rem;font-weight:600;color:var(--ink)}
 .proof li svg{width:16px;height:16px;color:var(--orange-ink);flex:none}
 .proof ul{display:contents}
@@ -235,6 +235,36 @@ h3{font-size:clamp(1.35rem,2.2vw,1.65rem);line-height:1.05}
 .crumbs a{text-decoration:none}
 .crumbs a:hover{color:var(--orange-ink)}
 
+/* Price list (cost page) */
+.prices{display:grid;border-top:2px solid var(--ink);max-width:860px}
+.price{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:16px;align-items:baseline;padding:16px 0;border-bottom:1px solid var(--line)}
+.price .what{font-weight:600;line-height:1.35}
+.price .what small{display:block;font-weight:400;font-size:.9rem;color:var(--soil);margin-top:2px}
+.price .amt{font-family:var(--font-display);font-weight:800;font-size:clamp(1.25rem,2.4vw,1.65rem);line-height:1.05;text-align:right;font-variant-numeric:tabular-nums}
+.price-total{background:var(--paper);padding-inline:14px}
+.price-total .amt{color:var(--orange-ink)}
+.source{font-size:.86rem;color:var(--soil);margin-top:14px;max-width:860px}
+
+/* Rebate calculator */
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(20px,4vw,44px);align-items:start}
+.calc-form{display:grid;gap:18px;background:var(--paper);border-top:3px solid var(--orange);padding:clamp(18px,3vw,28px);min-width:0}
+.field{display:grid;gap:6px;min-width:0}
+.field label{font-weight:700;font-size:.98rem;line-height:1.3}
+.field .hint{font-size:.86rem;color:var(--soil)}
+.field select,.field input{font:inherit;font-size:1.05rem;padding:.6em .7em;border:2px solid var(--line);border-radius:2px;background:var(--concrete);color:var(--ink);width:100%;min-width:0}
+.field select:focus-visible,.field input:focus-visible{border-color:var(--ink)}
+.check{display:flex;gap:10px;align-items:center;font-weight:700;font-size:.98rem;cursor:pointer}
+.check input{width:20px;height:20px;margin:0;flex:none;accent-color:var(--orange-ink)}
+.calc-out{display:grid;gap:14px;background:var(--ink);color:var(--on-dark);padding:clamp(18px,3vw,28px);position:sticky;top:90px;min-width:0}
+.calc-out .label{color:var(--on-dark-2)}
+.calc-total{font-family:var(--font-display);font-weight:800;font-size:clamp(2.8rem,7vw,4.4rem);line-height:.9;color:var(--orange);font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.calc-lines{display:grid;border-top:1px solid var(--line-dark)}
+.calc-lines[hidden]{display:none}
+.calc-lines div{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line-dark);font-size:.94rem}
+.calc-lines b{font-variant-numeric:tabular-nums;white-space:nowrap}
+.calc-note{font-size:.88rem;color:var(--on-dark-2)}
+@media (max-width:860px){.calc{grid-template-columns:1fr}.calc-out{position:static}}
+
 /* Seasonal strip */
 .season{background:var(--slab);border-bottom:1px solid var(--line)}
 .season-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 20px;padding-block:12px;font-size:.95rem}
@@ -304,7 +334,7 @@ h3{font-size:clamp(1.35rem,2.2vw,1.65rem);line-height:1.05}
       <h2 id="rebate-h">Utah may pay you to replace your lawn</h2>
       <p class="lede">Utah County homeowners can get paid to replace lawn with water-wise landscaping through Central Utah Water's Landscape Incentive Program. The rate depends on your town.</p>
       <p>Two rules matter most. The program has to visit and approve the project before any grass comes out, and half the new area has to be planted, so a rock-only yard won't qualify. In towns with secondary water, those site visits pause from October 15 to April 15. Winter is the time to plan: we'll measure, photograph and draw the plan you need, so you can apply first thing in spring.</p>
-      <p><a class="btn btn-line" href="https://www.utahwatersavers.com/program-eligibility-page" target="_blank" rel="noopener">Check your city on Utah Water Savers</a></p>
+      <div class="cta-row"><a class="btn btn-orange" href="#rebate-calculator">Estimate your rebate</a><a class="btn btn-line" href="https://www.utahwatersavers.com/program-eligibility-page" target="_blank" rel="noopener">Check your city on Utah Water Savers</a></div>
     </div>
     <div>
       <div class="rates" role="table" aria-label="Rebate amounts by town">
@@ -314,6 +344,74 @@ h3{font-size:clamp(1.35rem,2.2vw,1.65rem);line-height:1.05}
       <p class="fine" style="margin-top:12px">Residential rates from the Utah Water Savers program pages, October 2026. Rates and rules can change. Artificial turf, concrete and pavers don't qualify. The rebate is paid to the homeowner.</p>
     </div>
   </div>
+</section>
+
+<section class="section" id="rebate-calculator" aria-labelledby="calc-h">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="label">Rebate calculator</p>
+      <h2 id="calc-h">Estimate your water-wise rebate</h2>
+      <p class="lede">Pick your town and enter roughly how much lawn you'd replace. It uses Central Utah Water's residential rates. The program confirms the real amount when it visits.</p>
+    </div>
+    <div class="calc">
+      <form class="calc-form" id="calc-form" action="#" onsubmit="return false">
+        <div class="field"><label for="c-town">Your town</label><select id="c-town"><option value="Springville" data-tier="b">Springville</option><option value="Mapleton" data-tier="b">Mapleton</option><option value="Provo" data-tier="b">Provo</option><option value="Orem" data-tier="b">Orem</option><option value="Spanish Fork" data-tier="a">Spanish Fork</option><option value="Salem" data-tier="a">Salem</option><option value="Payson" data-tier="a">Payson</option><option value="other" data-tier="x">Another city</option></select></div>
+        <div class="field"><label for="c-lawn">Lawn to replace (sq ft)</label>
+          <input id="c-lawn" type="number" inputmode="numeric" min="0" step="10" placeholder="e.g. 1000">
+          <span class="hint">Not sure? Multiply length by width in feet. A 25 × 40 ft lawn is 1,000 sq ft.</span></div>
+        <div class="field"><label for="c-beds">Flower beds switching from spray to drip (sq ft)</label>
+          <input id="c-beds" type="number" inputmode="numeric" min="0" step="10" placeholder="Optional"></div>
+        <div class="field"><label for="c-trees">New trees planted (up to 10)</label>
+          <input id="c-trees" type="number" inputmode="numeric" min="0" max="10" step="1" placeholder="Optional"></div>
+        <label class="check"><input id="c-ctrl" type="checkbox"> Adding a smart sprinkler controller</label>
+      </form>
+      <div class="calc-out on-dark" aria-live="polite">
+        <p class="label">Estimated rebate</p>
+        <p class="calc-total" id="c-total">$0</p>
+        <div class="calc-lines" id="c-lines" hidden></div>
+        <p class="calc-note" id="c-note">Enter your lawn size to see the rebate and a typical price range.</p>
+        <p class="calc-note">The program has to approve the project before any grass comes out, and half the new area has to be planted. The rebate is paid to the homeowner after the finished yard passes inspection.</p>
+        <div class="cta-row"><a class="btn btn-orange" id="c-text" href="sms:+13852318503"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 3h16a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 1-2zm3 6v2h10V9zm0 4v2h7v-2z"/></svg>Text this to Sergio</a></div>
+      </div>
+    </div>
+  </div>
+  <script>
+(function(){
+  var form=document.getElementById('calc-form'); if(!form) return;
+  var RATES={a:{lawn:3,beds:1},b:{lawn:1.5,beds:0.5}};
+  var LOW=5, HIGH=15, PHONE='+13852318503';
+  function num(id,max){var v=parseFloat(document.getElementById(id).value);if(!isFinite(v)||v<0)v=0;if(max!==undefined)v=Math.min(v,max);return v;}
+  function usd(v){return '$'+Math.round(v).toLocaleString('en-US');}
+  function rate(v){return '$'+v.toFixed(2);}
+  function run(){
+    var sel=document.getElementById('c-town'), opt=sel.options[sel.selectedIndex];
+    var tier=opt.getAttribute('data-tier'), town=opt.value;
+    var lawn=Math.round(num('c-lawn')), beds=Math.round(num('c-beds')), trees=Math.floor(num('c-trees',10));
+    var ctrl=document.getElementById('c-ctrl').checked;
+    var rows=[], total=0, note='';
+    if(tier==='x'){
+      document.getElementById('c-total').textContent='Check your city';
+      note='Other cities run their own programs with their own rates. Use the Utah Water Savers link above, or text us your town and we will look it up.';
+    }else{
+      var r=RATES[tier];
+      function add(label,amt){if(amt>0){rows.push([label,amt]);total+=amt;}}
+      add('Lawn replacement: '+lawn.toLocaleString('en-US')+' sq ft \u00d7 '+rate(r.lawn),lawn*r.lawn);
+      add('Beds to drip: '+beds.toLocaleString('en-US')+' sq ft \u00d7 '+rate(r.beds),beds*r.beds);
+      add('Trees: '+trees+' \u00d7 $50',trees*50);
+      add('Smart controller (up to)',ctrl?100:0);
+      document.getElementById('c-total').textContent=usd(total);
+      note=lawn>0?('Typical Utah cost to xeriscape '+lawn.toLocaleString('en-US')+' sq ft: '+usd(lawn*LOW)+' to '+usd(lawn*HIGH)+' before the rebate. We give you an exact price after a free look.'):'Enter your lawn size to see the rebate and a typical price range.';
+    }
+    var box=document.getElementById('c-lines'); box.innerHTML='';
+    rows.forEach(function(x){var d=document.createElement('div');var s=document.createElement('span');s.textContent=x[0];var b=document.createElement('b');b.textContent=usd(x[1]);d.appendChild(s);d.appendChild(b);box.appendChild(d);});
+    box.hidden=rows.length===0;
+    document.getElementById('c-note').textContent=note;
+    var msg='Hi Sergio, I\u2019m in '+(tier==='x'?'(my town)':town)+(lawn>0?(' with about '+lawn.toLocaleString('en-US')+' sq ft of lawn I\u2019d like to replace.'):'.')+(total>0?(' The rebate calculator says about '+usd(total)+'.'):'')+' Can you take a look?';
+    document.getElementById('c-text').href='sms:'+PHONE+'?&body='+encodeURIComponent(msg);
+  }
+  form.addEventListener('input',run); form.addEventListener('change',run); run();
+})();
+</script>
 </section>
 
 <section class="section section-alt" id="reviews" aria-labelledby="reviews-h">
@@ -343,8 +441,9 @@ h3{font-size:clamp(1.35rem,2.2vw,1.65rem);line-height:1.05}
 <section class="section section-alt" id="faq" aria-labelledby="faq-h">
   <div class="wrap">
     <div class="section-head"><p class="label">Questions</p><h2 id="faq-h">Common questions</h2></div>
-    <div class="faq"><details><summary>Will a xeriscape yard just look like a gravel lot?</summary><p>It doesn't have to. A good xeriscape mixes rock, plants, edging and often some lawn, so the yard looks planned and finished.</p></details><details><summary>Can I keep some grass?</summary><p>Yes. Plenty of our projects keep a smaller lawn with rock borders and drip-watered beds around it.</p></details><details><summary>How does the lawn-replacement rebate work?</summary><p>You apply through Utah Water Savers, and the program visits and approves the project before any grass comes out. Spanish Fork, Salem and Payson pay $3.00 per sq ft; Springville, Mapleton, Provo and Orem pay $1.50. We measure, photograph and draw the plan the application needs, then build the yard to the program's rules.</p></details><details><summary>Can I apply for the rebate in winter?</summary><p>You can plan and design now, but in towns with secondary water the program's site visits pause from October 15 to April 15. We'll have your plan ready so you can apply as soon as visits start again.</p></details><details><summary>What happens to my sprinklers?</summary><p>We cap or convert the spray zones under the new landscape and run drip to the plants, so you only water what needs it.</p></details><details><summary>Do you handle the dirt work too?</summary><p>Yes. Turf removal, grading and prep are part of the job. You don't need a separate excavation company.</p></details></div>
+    <div class="faq"><details><summary>How much does xeriscaping cost?</summary><p>Most full conversions in Utah run about $5 to $15 per square foot before rebates. See <a class="textlink" href="/xeriscaping-cost-utah-county">xeriscaping costs in Utah County</a> for typical prices and a worked example.</p></details><details><summary>Will a xeriscape yard just look like a gravel lot?</summary><p>It doesn't have to. A good xeriscape mixes rock, plants, edging and often some lawn, so the yard looks planned and finished.</p></details><details><summary>Can I keep some grass?</summary><p>Yes. Plenty of our projects keep a smaller lawn with rock borders and drip-watered beds around it.</p></details><details><summary>How does the lawn-replacement rebate work?</summary><p>You apply through Utah Water Savers, and the program visits and approves the project before any grass comes out. Spanish Fork, Salem and Payson pay $3.00 per sq ft; Springville, Mapleton, Provo and Orem pay $1.50. We measure, photograph and draw the plan the application needs, then build the yard to the program's rules.</p></details><details><summary>Can I apply for the rebate in winter?</summary><p>You can plan and design now, but in towns with secondary water the program's site visits pause from October 15 to April 15. We'll have your plan ready so you can apply as soon as visits start again.</p></details><details><summary>What happens to my sprinklers?</summary><p>We cap or convert the spray zones under the new landscape and run drip to the plants, so you only water what needs it.</p></details><details><summary>Do you handle the dirt work too?</summary><p>Yes. Turf removal, grading and prep are part of the job. You don't need a separate excavation company.</p></details></div>
   </div>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How much does xeriscaping cost?","acceptedAnswer":{"@type":"Answer","text":"Most full conversions in Utah run about $5 to $15 per square foot before rebates. See xeriscaping costs in Utah County for typical prices and a worked example."}},{"@type":"Question","name":"Will a xeriscape yard just look like a gravel lot?","acceptedAnswer":{"@type":"Answer","text":"It doesn't have to. A good xeriscape mixes rock, plants, edging and often some lawn, so the yard looks planned and finished."}},{"@type":"Question","name":"Can I keep some grass?","acceptedAnswer":{"@type":"Answer","text":"Yes. Plenty of our projects keep a smaller lawn with rock borders and drip-watered beds around it."}},{"@type":"Question","name":"How does the lawn-replacement rebate work?","acceptedAnswer":{"@type":"Answer","text":"You apply through Utah Water Savers, and the program visits and approves the project before any grass comes out. Spanish Fork, Salem and Payson pay $3.00 per sq ft; Springville, Mapleton, Provo and Orem pay $1.50. We measure, photograph and draw the plan the application needs, then build the yard to the program's rules."}},{"@type":"Question","name":"Can I apply for the rebate in winter?","acceptedAnswer":{"@type":"Answer","text":"You can plan and design now, but in towns with secondary water the program's site visits pause from October 15 to April 15. We'll have your plan ready so you can apply as soon as visits start again."}},{"@type":"Question","name":"What happens to my sprinklers?","acceptedAnswer":{"@type":"Answer","text":"We cap or convert the spray zones under the new landscape and run drip to the plants, so you only water what needs it."}},{"@type":"Question","name":"Do you handle the dirt work too?","acceptedAnswer":{"@type":"Answer","text":"Yes. Turf removal, grading and prep are part of the job. You don't need a separate excavation company."}}]}</script>
 </section>
 </main>
 
@@ -359,7 +458,7 @@ h3{font-size:clamp(1.35rem,2.2vw,1.65rem);line-height:1.05}
     <div class="foot-grid">
       <div class="foot-brand"><img src="images/logo-white-480.png" width="480" height="145" alt="Vessel Groundworks" loading="lazy"><p>Landscaping, sprinkler repair, xeriscaping and excavation in Springville and across Utah County.</p></div>
       <div><h4>Contact</h4><ul><li><a href="tel:+13852318503">(385) 231-8503</a></li><li><a href="mailto:sergio@vesselgroundworks.com">sergio@vesselgroundworks.com</a></li><li>Mon–Sat, 8am–6pm</li><li>Se habla español</li></ul></div>
-      <div><h4>Services</h4><ul><li><a href="/sprinkler-repair-in-utah-county">Sprinkler repair</a></li><li><a href="/sprinkler-blowout-in-utah-county">Blowouts</a></li><li><a href="/xeriscaping-in-utah-county">Xeriscaping</a></li><li><a href="/excavation-in-utah-county">Excavation</a></li><li><a href="https://www.google.com/maps?cid=12567048390870205497" target="_blank" rel="noopener">Google reviews</a></li></ul></div>
+      <div><h4>Services</h4><ul><li><a href="/sprinkler-repair-in-utah-county">Sprinkler repair</a></li><li><a href="/sprinkler-blowout-in-utah-county">Blowouts</a></li><li><a href="/xeriscaping-in-utah-county">Xeriscaping</a></li><li><a href="/excavation-in-utah-county">Excavation</a></li><li><a href="/xeriscaping-cost-utah-county">Xeriscaping costs</a></li><li><a href="https://www.google.com/maps?cid=12567048390870205497" target="_blank" rel="noopener">Google reviews</a></li></ul></div>
       <div><h4>Areas</h4><ul><li>Springville</li><li>Mapleton</li><li>Spanish Fork</li><li>Salem</li><li>Payson</li><li>Provo</li><li>Orem</li></ul></div>
     </div>
     <div class="foot-legal"><span>© 2026 Vessel Groundworks · Springville, Utah</span><span><a href="https://www.facebook.com/vesselgroundworks" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.instagram.com/vesselgroundworks" target="_blank" rel="noopener">Instagram</a></span></div>
