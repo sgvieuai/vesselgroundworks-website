@@ -15,6 +15,7 @@ REPO_MODE = os.path.exists(os.path.join(ROOT, "CNAME"))
 SITE = ROOT if REPO_MODE else os.path.join(ROOT, "site")
 PREVIEW = os.path.join(ROOT, "preview")
 DOMAIN = "https://vesselgroundworks.com"
+LASTMOD = "2026-10-16"  # sitemap date; bump when page content changes
 
 PHONE_DISPLAY = "(385) 398-9355"
 PHONE_TEL = "+13853989355"
@@ -379,7 +380,7 @@ def page_home(link):
          ["Heads &amp; rotors", "Valves &amp; manifolds", "Line breaks", "Pressure &amp; coverage", "Drip conversion"]),
         ("xeriscaping-in-utah-county", "Xeriscaping &amp; low-water landscaping", "xeriscape-side-yard-sod-rock-border", "Side yard with a small lawn framed by rock and drought-tolerant grasses",
          "Rock, drought-tolerant plants, drip irrigation and as much lawn as you want to keep. Lower water bills and less mowing, and the yard still looks finished.",
-         ["Rock &amp; gravel", "Sod &amp; lawn reduction", "Drip irrigation", "Concrete curbing", "Planting"]),
+         ["Rock &amp; gravel", "Sod &amp; lawn reduction", "Park strips", "Drip irrigation", "Concrete curbing", "Planting"]),
         ("excavation-in-utah-county", "Excavation, grading &amp; site prep", "excavation-from-excavator-cab", "View from an excavator cab digging a deep residential excavation",
          "The work under the finished project: grading, trenching, and prep for concrete, drainage and retaining walls, done with compact equipment that fits residential yards.",
          ["Grading", "Trenching", "Concrete prep", "Drainage", "Retaining wall prep"]),
@@ -505,8 +506,8 @@ def page_sprinklers(link):
                 "Low pressure, or heads that barely pop up", "Overspray hitting the sidewalk, driveway or house"]
     return f'''
 <main id="main">
-{service_hero("Sprinkler repair", "Sprinklers &amp; irrigation", 'Sprinkler repair <span class="hl">in Utah County</span>',
-   "Broken heads, leaking valves, zones that won't shut off, dry spots in the lawn. We find the problem, fix it right, and check that every zone covers the way it should.",
+{service_hero("Sprinkler repair", "Sprinklers &amp; irrigation", 'Sprinkler repair in <span class="hl">Springville &amp; Utah County</span>',
+   "Broken heads, leaking valves, zones that won't shut off, water bubbling up in the yard. We're a Springville sprinkler repair company working across Utah County. We find the problem, fix it right, and check that every zone covers the way it should.",
    "broken-sprinkler-head-repair", "Broken sprinkler head spraying water onto a park strip and sidewalk", "Broken head flooding a park strip", link)}
 
 <section class="section section-alt" aria-labelledby="sym-h">
@@ -541,13 +542,34 @@ def page_sprinklers(link):
     ])}</div>
   </div>
 </section>
+
+<section class="section section-alt" aria-labelledby="trouble-h">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="label">Troubleshooting</p>
+      <h2 id="trouble-h">Common sprinkler problems and what usually causes them</h2>
+      <p class="lede">Many Utah County homes water with secondary water (pressurized irrigation). It isn't filtered like tap water, so sand and grit are a common cause of clogged nozzles and valves that won't close.</p>
+    </div>
+    {fixes([
+        ("Water bubbling up or a soggy spot", "Usually a cracked pipe or fitting, or a leaking valve. If the spot stays wet with the sprinklers off, the leak is probably on the main line, which is under pressure all the time. Shut off the water to the sprinkler system and text us a photo."),
+        ("A zone won't turn on", "Often a bad solenoid, a broken wire or a controller problem. If you can hear the valve click but no water comes out, the valve itself or the water supply is the more likely cause."),
+        ("A zone won't shut off", "Usually grit or a torn diaphragm holding the valve open. This one wastes a lot of water fast, so turn off the water to the system until it's fixed."),
+        ("Low pressure or heads that barely pop up", "A break somewhere on the zone, a partly closed valve, a clogged filter or nozzles, or too many heads on one zone."),
+        ("Brown or dry spots", "Clogged or mismatched nozzles, sunken or tilted heads, or heads blocked by grass and plants. Older systems often have spots the spacing never reached."),
+        ("Water hitting the sidewalk or house", "Heads that are misaligned, broken or the wrong spray pattern. Fixing overspray saves water and keeps it away from the foundation."),
+    ])}
+    <p style="margin-top:20px">Not sure which one it is? Text a photo or short video to <a class="textlink" href="sms:{PHONE_TEL}">{PHONE_DISPLAY}</a>.</p>
+  </div>
+</section>
 {rebate_section(compact=True)}
 {reviews_section(["mason", "kasha", "joshua"], "Utah County's sprinkler guy")}
 {area_section()}
 {faq_section([
     ("How fast can you come out?", "We answer calls and texts the same day and get repairs on the schedule as soon as we can. Texting a photo of the problem helps us bring the right parts the first time."),
-    ("Do you charge for estimates?", "No. Estimates are free, and you get the price before any work starts."),
+    ("How much does sprinkler repair cost?", "It depends on what's broken. A broken head or nozzle is a quick fix. Line breaks and valve replacements take more digging, parts and time. Estimates are free, and you get a clear price before any work starts."),
+    ("Why is water bubbling up in my yard?", "Most of the time it's a broken pipe or fitting underground, or a leaking valve. If the spot stays wet with the sprinklers off, the leak is probably on the main line, which is under pressure all the time. Turn off the water to the sprinkler system and text us a photo."),
     ("Can you fix a system someone else installed?", "Yes. We repair sprinkler systems no matter who put them in."),
+    ("Do you work on systems that run on secondary water?", "Yes. Secondary water isn't filtered, so sand and grit can clog nozzles and keep valves from closing. We clean or replace what's clogged and can add a filter where it helps."),
     ("Do you work on drip systems?", "Yes. We repair drip lines and emitters, add drip to beds and trees, and convert spray zones to drip."),
     ("Where do you do sprinkler repair?", "Springville, Mapleton, Spanish Fork, Salem, Payson, Provo, Orem and nearby. Outside that area? Text us and ask."),
     ("Do you do fall blowouts?", f'Yes. We blow out every zone with compressed air before the hard freezes. See <a class="textlink" href="{link("sprinkler-blowout-in-utah-county")}">sprinkler blowouts</a>.'),
@@ -559,7 +581,7 @@ def page_xeriscape(link):
     return f'''
 <main id="main">
 {service_hero("Xeriscaping", "Low-water landscaping", 'Xeriscaping &amp; low-water yards <span class="hl">in Utah County</span>',
-   "Less mowing, lower water bills, and a yard that still looks finished. We build water-wise yards made for Utah: rock, drought-tolerant plants, drip irrigation, and as much or as little lawn as you want to keep.",
+   "Less mowing, lower water bills, and a yard that still looks finished. We're a Springville xeriscaping company building water-wise yards across Utah County: rock, drought-tolerant plants, drip irrigation, park strip conversions, and as much or as little lawn as you want to keep.",
    "xeriscape-side-yard-sod-rock-border", "Side yard with a small lawn framed by rock and drought-tolerant grasses", "Lawn reduction with rock borders", link)}
 
 <section class="section section-alt" aria-labelledby="xfix-h">
@@ -572,6 +594,44 @@ def page_xeriscape(link):
         ("Drip irrigation", "Drip lines to plants, trees and beds, so water goes to roots instead of rock."),
         ("Concrete curbing &amp; edging", "Clean edges between lawn, rock and beds that keep materials where they belong."),
         ("Planting &amp; layout", "Drought-tolerant plants placed so the yard looks planned, not empty."),
+    ])}
+  </div>
+</section>
+
+<section class="section" id="park-strips" aria-labelledby="strip-h">
+  <div class="wrap split">
+    {img("broken-sprinkler-head-repair", "Broken sprinkler head spraying water onto a park strip and sidewalk", "(max-width: 860px) 100vw, 50vw")}
+    <div class="split-copy">
+      <p class="label">Park strips</p>
+      <h2 id="strip-h">Park strip conversions (Flip Your Strip)</h2>
+      <p>The park strip is the narrow strip of grass between the sidewalk and the street. It's the hardest part of a yard to water well. Spray heads hit the sidewalk and curb, and a lot of that water runs down the gutter. Swapping it for rock, mulch and low-water plants on drip is one of the quickest ways to cut outdoor water use.</p>
+      <p>Utah's park strip rebate started out as Flip Your Strip. Today park strips are one of the project types in the Landscape Incentive Program, paid per square foot of lawn replaced at your town's rate. Same rule as any project: get approved before the grass comes out.</p>
+      <ul class="checks">
+        <li>Turf removed and hauled away</li>
+        <li>Spray heads capped, drip run to each plant</li>
+        <li>Rock or mulch with enough plants to meet the rebate rules</li>
+        <li>Room left by the curb to step out of a parked car</li>
+        <li>Measurements and photos for the rebate application</li>
+      </ul>
+      <p>Cities have their own rules for trees and plant height near the street, so we check yours before we plan.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" aria-labelledby="plants-h">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="label">Xeriscape ideas</p>
+      <h2 id="plants-h">Low-water plants that do well in Utah County</h2>
+      <p class="lede">Plants are what keep a xeriscape from looking like a gravel lot. These handle hot, dry summers, cold winters and alkaline soil once they're established on drip.</p>
+    </div>
+    {fixes([
+        ("Penstemon", "Utah natives with tall spikes of red, pink, blue or purple flowers in late spring. Hummingbirds love them."),
+        ("Russian sage &amp; catmint", "Soft purple-blue color for most of the summer. Tough in heat and rarely bothered by deer."),
+        ("Lavender &amp; agastache", "Fragrant, long-blooming and loved by pollinators. Agastache is also called hummingbird mint."),
+        ("Ornamental grasses", "Blue grama and blue avena grass add movement and look good through the winter."),
+        ("Ground covers", "Creeping thyme, hardy ice plant and sedum fill in between stepping stones and soften rock beds."),
+        ("Native shrubs", "Apache plume and rabbitbrush give structure and need very little water once they're settled in."),
     ])}
   </div>
 </section>
@@ -610,6 +670,8 @@ def page_xeriscape(link):
     ("Will a xeriscape yard just look like a gravel lot?", "It doesn't have to. A good xeriscape mixes rock, plants, edging and often some lawn, so the yard looks planned and finished."),
     ("Can I keep some grass?", "Yes. Plenty of our projects keep a smaller lawn with rock borders and drip-watered beds around it."),
     ("How does the lawn-replacement rebate work?", "You apply through Utah Water Savers, and the program visits and approves the project before any grass comes out. Spanish Fork, Salem and Payson pay $3.00 per sq ft; Springville, Mapleton, Provo and Orem pay $1.50. We measure, photograph and draw the plan the application needs, then build the yard to the program's rules."),
+    ("Does the rebate cover park strips?", "Yes. Park strips are one of the project types in Utah Water Savers' Landscape Incentive Program, paid per square foot of lawn replaced at your town's rate. As with any project, it has to be approved before the grass comes out."),
+    ("What plants work best for xeriscaping in Utah?", "Plants that handle heat, cold and alkaline soil once they're established, like penstemon, Russian sage, catmint, lavender, agastache, blue grama grass, and ground covers such as creeping thyme and hardy ice plant. We put them on drip so each one gets water at the roots."),
     ("Can I apply for the rebate in winter?", "You can plan and design now, but in towns with secondary water the program's site visits pause from October 15 to April 15. We'll have your plan ready so you can apply as soon as visits start again."),
     ("What happens to my sprinklers?", "We cap or convert the spray zones under the new landscape and run drip to the plants, so you only water what needs it."),
     ("Do you handle the dirt work too?", "Yes. Turf removal, grading and prep are part of the job. You don't need a separate excavation company."),
@@ -673,7 +735,7 @@ def page_blowout(link):
               "Sprinkler heads and risers", "Drip filters and pressure reducers"]
     return f'''
 <main id="main">
-{service_hero("Sprinkler blowouts", "Fall winterizing", 'Sprinkler blowouts <span class="hl">in Utah County</span>',
+{service_hero("Sprinkler blowouts", "Fall winterizing", 'Sprinkler blowouts &amp; winterization <span class="hl">in Utah County</span>',
    "Water left in your lines freezes, expands and cracks pipe, fittings and valves. We blow out every zone with compressed air before the hard freezes, so your system starts clean in spring.",
    "sprinkler-valve-box-service", "Opened sprinkler valve box with valves and wiring", "Valve box service · Utah County", link)}
 
@@ -782,6 +844,8 @@ def page_cost(link):
     ("How much does xeriscaping cost per square foot in Utah?", f"Most full conversions run about ${COST_LOW} to ${COST_HIGH} per square foot. A simple yard with rock and light planting sits at the low end. Curbing, boulders, dense planting and big grade changes push it higher."),
     ("How much does it cost to replace a 1,000 sq ft lawn?", f"Typically ${lo:,} to ${hi:,} before rebates. In Spanish Fork, Salem and Payson the lawn-replacement rebate is $3.00 per sq ft, or $3,000. In Springville, Mapleton, Provo and Orem it's $1.50 per sq ft, or $1,500."),
     ("Does the rebate pay for the whole project?", "No. It covers part of the cost. The program also has rules: it has to approve the project before any grass comes out, half the new area has to be planted, and artificial turf, concrete and pavers don't qualify."),
+    ("Does a backyard cost more than a front yard?", "Mostly it comes down to access. If our equipment fits through the gate, a backyard prices about the same as a front yard of the same size. A tight gate or steep side yard means more hand work and more time."),
+    ("How much does it cost to xeriscape a park strip?", f'Park strips are small, so setup and hauling make up a bigger share of the job, and the price per square foot usually lands toward the high end. The lawn-replacement rebate covers park strips too. See <a class="textlink" href="{link("xeriscaping-in-utah-county")}#park-strips">park strip conversions</a>.'),
     ("Is rock cheaper than sod?", "Up front they can cost about the same, depending on the rock and the yard. The difference is what comes after: rock and drip-watered plants don't need mowing and use far less water every summer."),
     ("Are estimates free?", "Yes. Call or text and we'll come look at the yard. You get a clear price before any work starts."),
     ("When should I start planning?", "Winter. In towns with secondary water, the rebate program's site visits pause from October 15 to April 15. If your plan and measurements are ready, you can apply as soon as visits start again in spring."),
@@ -791,27 +855,27 @@ def page_cost(link):
 
 PAGES = [
     {"slug": "", "file": "index", "fn": page_home,
-     "title": "Vessel Groundworks | Landscaping & Sprinkler Repair in Springville, UT",
-     "desc": "Sprinkler repair, xeriscaping and excavation in Springville and across Utah County. 5.0 on Google, free estimates, hablamos español. Call or text (385) 398-9355.",
+     "title": "Landscaping & Sprinkler Repair in Springville, UT | Vessel Groundworks",
+     "desc": "Springville landscaping company serving Utah County: sprinkler repair, xeriscaping and excavation. 5.0 on Google, free estimates. Call or text (385) 398-9355.",
      "schema": [BUSINESS]},
     {"slug": "sprinkler-repair-in-utah-county", "file": "sprinkler-repair-in-utah-county", "fn": page_sprinklers,
-     "title": "Sprinkler Repair in Utah County | Vessel Groundworks",
-     "desc": "Broken heads, leaking valves, line breaks and dry spots fixed fast. Sprinkler repair in Springville, Spanish Fork, Provo, Orem and across Utah County. Free estimates.",
-     "schema": [service_schema("Sprinkler repair", "sprinkler-repair-in-utah-county", "Sprinkler and irrigation repair across Utah County."), breadcrumb("Sprinkler repair", "sprinkler-repair-in-utah-county")]},
+     "title": "Sprinkler Repair in Springville & Utah County | Vessel Groundworks",
+     "desc": "Sprinkler repair in Springville, Provo, Orem, Spanish Fork and across Utah County. Broken heads, leaking valves, line breaks and zones that won't shut off. Free estimates.",
+     "schema": [service_schema("Sprinkler repair", "sprinkler-repair-in-utah-county", "Sprinkler and irrigation repair in Springville and across Utah County: heads, valves, line breaks, pressure and coverage, drip."), breadcrumb("Sprinkler repair", "sprinkler-repair-in-utah-county")]},
     {"slug": "sprinkler-blowout-in-utah-county", "file": "sprinkler-blowout-in-utah-county", "fn": page_blowout,
-     "title": "Sprinkler Blowouts & Winterizing in Utah County | Vessel Groundworks",
-     "desc": "Fall sprinkler blowouts in Springville, Spanish Fork, Provo, Orem and across Utah County. Every zone cleared with compressed air before the hard freeze. Call or text (385) 398-9355.",
+     "title": "Sprinkler Blowouts & Winterization in Utah County | Vessel Groundworks",
+     "desc": "Sprinkler blowouts and winterization in Springville, Spanish Fork, Provo, Orem and across Utah County. Every zone cleared with compressed air before the hard freeze.",
      "schema": [service_schema("Sprinkler blowout and winterization", "sprinkler-blowout-in-utah-county", "Fall sprinkler blowouts and irrigation winterizing across Utah County."), breadcrumb("Sprinkler blowouts", "sprinkler-blowout-in-utah-county")]},
     {"slug": "xeriscaping-in-utah-county", "file": "xeriscaping-in-utah-county", "fn": page_xeriscape,
-     "title": "Xeriscaping & Low-Water Landscaping in Utah County | Vessel Groundworks",
-     "desc": "Water-wise yards with rock, drought-tolerant plants and drip irrigation. Xeriscaping in Springville and Utah County, plus help with Utah's lawn-replacement rebate.",
-     "schema": [service_schema("Xeriscaping and low-water landscaping", "xeriscaping-in-utah-county", "Xeriscape and low-water landscape installation across Utah County."), breadcrumb("Xeriscaping", "xeriscaping-in-utah-county")]},
+     "title": "Xeriscaping in Utah County: Installs & Rebate Help | Vessel Groundworks",
+     "desc": "Springville xeriscaping company serving Utah County. Rock, drought-tolerant plants, drip and park strip conversions, plus help with Utah's lawn-replacement rebate.",
+     "schema": [service_schema("Xeriscaping and low-water landscaping", "xeriscaping-in-utah-county", "Xeriscape, park strip conversion and low-water landscape installation across Utah County."), breadcrumb("Xeriscaping", "xeriscaping-in-utah-county")]},
     {"slug": "excavation-in-utah-county", "file": "excavation-in-utah-county", "fn": page_excavation,
      "title": "Excavation & Grading in Utah County | Vessel Groundworks",
      "desc": "Residential excavation, grading, trenching and concrete prep in Springville and across Utah County. Compact equipment for tight yards. Free estimates.",
      "schema": [service_schema("Excavation, grading and site prep", "excavation-in-utah-county", "Residential excavation, grading, trenching and site prep across Utah County."), breadcrumb("Excavation", "excavation-in-utah-county")]},
     {"slug": COST_SLUG, "file": COST_SLUG, "fn": page_cost,
-     "title": "Xeriscaping Cost in Utah County (2026 Prices + Rebates) | Vessel Groundworks",
+     "title": "Xeriscaping Cost in Utah County (2026) + Rebate Calculator | Vessel Groundworks",
      "desc": f"What xeriscaping costs in Utah County: about ${COST_LOW}–${COST_HIGH} per sq ft, plus $1.50–$3.00 per sq ft back from the lawn-replacement rebate. Free rebate calculator and estimates.",
      "schema": [breadcrumb("Xeriscaping cost", COST_SLUG)]},
 ]
@@ -831,7 +895,7 @@ def build():
         f.write(full_doc(nf, nf_body).replace('<link rel="canonical" href="https://vesselgroundworks.com/">', '<meta name="robots" content="noindex">'))
     with open(os.path.join(SITE, "robots.txt"), "w") as f:
         f.write(f"User-agent: *\nAllow: /\n\nSitemap: {DOMAIN}/sitemap.xml\n")
-    urls = "".join(f"<url><loc>{DOMAIN}{prod_link(p['slug'])}</loc><lastmod>2026-10-14</lastmod></url>" for p in PAGES)
+    urls = "".join(f"<url><loc>{DOMAIN}{prod_link(p['slug'])}</loc><lastmod>{LASTMOD}</lastmod></url>" for p in PAGES)
     with open(os.path.join(SITE, "sitemap.xml"), "w") as f:
         f.write(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>\n')
 
