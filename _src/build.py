@@ -539,11 +539,12 @@ def page_sprinklers(link):
     <div style="margin-top:clamp(28px,4vw,44px)" id="pricing">
       <h3 style="margin:0 0 12px">Sprinkler repair pricing</h3>
       <div class="prices">
-        <div class="price price-total"><span class="what">Repair labor</span><span class="amt">${REPAIR_RATE} / hour</span></div>
-        <div class="price"><span class="what">Minimum<small>Covers the trip and the first hour of work</small></span><span class="amt">1 hour</span></div>
+        <div class="price"><span class="what">Coming out to take a look<small>We find the problem and tell you what it should cost</small></span><span class="amt">Free</span></div>
+        <div class="price price-total"><span class="what">Repair labor<small>If you decide to go ahead</small></span><span class="amt">${REPAIR_RATE} / hour</span></div>
+        <div class="price"><span class="what">Minimum<small>Once the repair starts</small></span><span class="amt">1 hour</span></div>
         <div class="price"><span class="what">Parts<small>Heads, valves, pipe and fittings, based on what the repair needs</small></span><span class="amt">Extra</span></div>
       </div>
-      <p class="source">You'll know what's wrong and what it should cost before any work starts. Free estimates on bigger projects like new zones, drip conversions and landscaping.</p>
+      <p class="source">No work starts until you say yes.</p>
     </div>
     <div style="margin-top:clamp(28px,4vw,44px)">{gallery([
         ("sprinkler-valve-manifold-install", "Three-valve sprinkler manifold assembled before burial", "New valve manifold"),
@@ -576,7 +577,7 @@ def page_sprinklers(link):
 {area_section()}
 {faq_section([
     ("How fast can you come out?", "We answer calls and texts the same day and get repairs on the schedule as soon as we can. Texting a photo of the problem helps us bring the right parts the first time."),
-    ("How much does sprinkler repair cost?", f"Sprinkler repairs are ${REPAIR_RATE} an hour plus parts, with a 1-hour minimum. A broken head or nozzle is usually quick. Line breaks and valve replacements take more digging, parts and time. You'll know what's wrong and what it should cost before any work starts."),
+    ("How much does sprinkler repair cost?", f"Coming out to look is free. If you go ahead, repairs are ${REPAIR_RATE} an hour plus parts, with a 1-hour minimum. A broken head or nozzle is usually quick. Line breaks and valve replacements take more digging, parts and time. You'll know what it should cost before any work starts."),
     ("Why is water bubbling up in my yard?", "Most of the time it's a broken pipe or fitting underground, or a leaking valve. If the spot stays wet with the sprinklers off, the leak is probably on the main line, which is under pressure all the time. Turn off the water to the sprinkler system and text us a photo."),
     ("Can you fix a system someone else installed?", "Yes. We repair sprinkler systems no matter who put them in."),
     ("Do you work on systems that run on secondary water?", "Yes. Secondary water isn't filtered, so sand and grit can clog nozzles and keep valves from closing. We clean or replace what's clogged and can add a filter where it helps."),
@@ -585,7 +586,7 @@ def page_sprinklers(link):
     ("Do you do fall blowouts?", f'Yes. We blow out every zone with compressed air before the hard freezes. See <a class="textlink" href="{link("sprinkler-blowout-in-utah-county")}">sprinkler blowouts</a>.'),
 ])}
 </main>
-{cta_band("Sprinklers acting up? Let's fix them.", f"${REPAIR_RATE} an hour plus parts, 1-hour minimum. Call or text Sergio, Monday to Saturday, 8am to 6pm.")}'''
+{cta_band("Sprinklers acting up? Let's fix them.", f"Free look, then ${REPAIR_RATE} an hour plus parts if you go ahead. Call or text Sergio, Monday to Saturday, 8am to 6pm.")}'''
 
 def page_xeriscape(link):
     return f'''
@@ -953,7 +954,7 @@ PAGES = [
      "schema": [BUSINESS]},
     {"slug": "sprinkler-repair-in-utah-county", "file": "sprinkler-repair-in-utah-county", "fn": page_sprinklers,
      "title": "Sprinkler Repair in Springville & Utah County | Vessel Groundworks",
-     "desc": f"Sprinkler repair in Springville, Provo, Orem, Spanish Fork and across Utah County. ${REPAIR_RATE}/hour plus parts, 1-hour minimum. Broken heads, leaking valves, line breaks.",
+     "desc": f"Sprinkler repair in Springville, Provo, Orem, Spanish Fork and across Utah County. Free estimates, then ${REPAIR_RATE}/hour plus parts. Broken heads, valves, line breaks.",
      "schema": [dict(service_schema("Sprinkler repair", "sprinkler-repair-in-utah-county", "Sprinkler and irrigation repair in Springville and across Utah County: heads, valves, line breaks, pressure and coverage, drip."),
                      offers={"@type": "Offer", "priceCurrency": "USD", "priceSpecification": {"@type": "UnitPriceSpecification", "price": REPAIR_RATE, "priceCurrency": "USD", "unitCode": "HUR", "description": "Labor per hour, plus parts. 1-hour minimum."}}),
                 breadcrumb("Sprinkler repair", "sprinkler-repair-in-utah-county")]},
