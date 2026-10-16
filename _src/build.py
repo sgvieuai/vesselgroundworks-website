@@ -292,7 +292,7 @@ BUSINESS = {
     "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], "opens": "08:00", "closes": "18:00"}],
     "knowsLanguage": ["en", "es"],
     "foundingDate": "2021-05-02",
-    "sameAs": [FACEBOOK, INSTAGRAM, GOOGLE_REVIEWS],
+    "sameAs": [GOOGLE_REVIEWS],  # add FACEBOOK / INSTAGRAM back once those pages exist
     "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Services", "itemListElement": [
         {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Sprinkler repair", "url": DOMAIN + "/sprinkler-repair-in-utah-county"}},
         {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Sprinkler blowout and winterization", "url": DOMAIN + "/sprinkler-blowout-in-utah-county"}},
@@ -347,7 +347,7 @@ def footer(link):
       <div><h4>Services</h4><ul>{svc}<li><a href="{GOOGLE_REVIEWS}" target="_blank" rel="noopener">Google reviews</a></li></ul></div>
       <div><h4>Areas</h4><ul>{towns}</ul></div>
     </div>
-    <div class="foot-legal"><span>© 2026 Vessel Groundworks · Springville, Utah</span><span><a href="{FACEBOOK}" target="_blank" rel="noopener">Facebook</a> · <a href="{INSTAGRAM}" target="_blank" rel="noopener">Instagram</a></span></div>
+    <div class="foot-legal"><span>© 2026 Vessel Groundworks · Springville, Utah</span></div>
   </div>
 </footer>
 <div class="callbar"><a class="btn btn-orange" href="tel:{PHONE_TEL}">{I_PHONE}Call</a><a class="btn btn-line" style="border-color:var(--on-dark);color:var(--on-dark)" href="sms:{PHONE_TEL}">{I_TEXT}Text</a></div>'''
