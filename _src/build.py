@@ -337,7 +337,7 @@ def header(current, link):
 
 def footer(link):
     svc = "".join(f'<li><a href="{link(s)}">{t}</a></li>' for s, t in NAV)
-    svc += f'<li><a href="{link(COST_SLUG)}">Xeriscaping costs</a></li>'
+    svc += f'<li><a href="{link(COST_SLUG)}">Xeriscaping costs</a></li><li><a href="{link(STRIP_SLUG)}">Park strips</a></li>'
     towns = "".join(f"<li>{t}</li>" for t in TOWNS)
     return f'''
 <footer class="site-foot">
@@ -603,17 +603,10 @@ def page_xeriscape(link):
     {img("broken-sprinkler-head-repair", "Broken sprinkler head spraying water onto a park strip and sidewalk", "(max-width: 860px) 100vw, 50vw")}
     <div class="split-copy">
       <p class="label">Park strips</p>
-      <h2 id="strip-h">Park strip conversions (Flip Your Strip)</h2>
-      <p>The park strip is the narrow strip of grass between the sidewalk and the street. It's the hardest part of a yard to water well. Spray heads hit the sidewalk and curb, and a lot of that water runs down the gutter. Swapping it for rock, mulch and low-water plants on drip is one of the quickest ways to cut outdoor water use.</p>
-      <p>Utah's park strip rebate started out as Flip Your Strip. Today park strips are one of the project types in the Landscape Incentive Program, paid per square foot of lawn replaced at your town's rate. Same rule as any project: get approved before the grass comes out.</p>
-      <ul class="checks">
-        <li>Turf removed and hauled away</li>
-        <li>Spray heads capped, drip run to each plant</li>
-        <li>Rock or mulch with enough plants to meet the rebate rules</li>
-        <li>Room left by the curb to step out of a parked car</li>
-        <li>Measurements and photos for the rebate application</li>
-      </ul>
-      <p>Cities have their own rules for trees and plant height near the street, so we check yours before we plan.</p>
+      <h2 id="strip-h">Park strip conversions</h2>
+      <p>The park strip is the narrow strip of grass between the sidewalk and the street. It's the hardest part of a yard to water well. Spray heads hit the sidewalk and curb, and a lot of that water runs down the gutter. Swapping it for rock, mulch and low plants on drip is one of the quickest ways to cut outdoor water use.</p>
+      <p>Park strips qualify for the lawn-replacement rebate, with a few extra rules: plants under 24 inches, no rebate trees in narrow strips, and a 200 sq ft project minimum that most people meet by pairing the strip with part of the front lawn.</p>
+      <p><a class="textlink" href="{link(STRIP_SLUG)}">Park strip rules, plant ideas and costs</a></p>
     </div>
   </div>
 </section>
@@ -670,7 +663,7 @@ def page_xeriscape(link):
     ("Will a xeriscape yard just look like a gravel lot?", "It doesn't have to. A good xeriscape mixes rock, plants, edging and often some lawn, so the yard looks planned and finished."),
     ("Can I keep some grass?", "Yes. Plenty of our projects keep a smaller lawn with rock borders and drip-watered beds around it."),
     ("How does the lawn-replacement rebate work?", "You apply through Utah Water Savers, and the program visits and approves the project before any grass comes out. Spanish Fork, Salem and Payson pay $3.00 per sq ft; Springville, Mapleton, Provo and Orem pay $1.50. We measure, photograph and draw the plan the application needs, then build the yard to the program's rules."),
-    ("Does the rebate cover park strips?", "Yes. Park strips are one of the project types in Utah Water Savers' Landscape Incentive Program, paid per square foot of lawn replaced at your town's rate. As with any project, it has to be approved before the grass comes out."),
+    ("Does the rebate cover park strips?", f'Yes, at the same per-square-foot rate as the rest of the lawn, with extra rules on plant height and trees. See <a class="textlink" href="{link(STRIP_SLUG)}">park strip landscaping</a>.'),
     ("What plants work best for xeriscaping in Utah?", "Plants that handle heat, cold and alkaline soil once they're established, like penstemon, Russian sage, catmint, lavender, agastache, blue grama grass, and ground covers such as creeping thyme and hardy ice plant. We put them on drip so each one gets water at the roots."),
     ("Can I apply for the rebate in winter?", "You can plan and design now, but in towns with secondary water the program's site visits pause from October 15 to April 15. We'll have your plan ready so you can apply as soon as visits start again."),
     ("What happens to my sprinklers?", "We cap or convert the spray zones under the new landscape and run drip to the plants, so you only water what needs it."),
@@ -845,13 +838,103 @@ def page_cost(link):
     ("How much does it cost to replace a 1,000 sq ft lawn?", f"Typically ${lo:,} to ${hi:,} before rebates. In Spanish Fork, Salem and Payson the lawn-replacement rebate is $3.00 per sq ft, or $3,000. In Springville, Mapleton, Provo and Orem it's $1.50 per sq ft, or $1,500."),
     ("Does the rebate pay for the whole project?", "No. It covers part of the cost. The program also has rules: it has to approve the project before any grass comes out, half the new area has to be planted, and artificial turf, concrete and pavers don't qualify."),
     ("Does a backyard cost more than a front yard?", "Mostly it comes down to access. If our equipment fits through the gate, a backyard prices about the same as a front yard of the same size. A tight gate or steep side yard means more hand work and more time."),
-    ("How much does it cost to xeriscape a park strip?", f'Park strips are small, so setup and hauling make up a bigger share of the job, and the price per square foot usually lands toward the high end. The lawn-replacement rebate covers park strips too. See <a class="textlink" href="{link("xeriscaping-in-utah-county")}#park-strips">park strip conversions</a>.'),
+    ("How much does it cost to xeriscape a park strip?", f'Park strips are small, so setup and hauling make up a bigger share of the job, and the price per square foot usually lands toward the high end. The lawn-replacement rebate covers park strips too. See <a class="textlink" href="{link(STRIP_SLUG)}">park strip landscaping</a>.'),
     ("Is rock cheaper than sod?", "Up front they can cost about the same, depending on the rock and the yard. The difference is what comes after: rock and drip-watered plants don't need mowing and use far less water every summer."),
     ("Are estimates free?", "Yes. Call or text and we'll come look at the yard. You get a clear price before any work starts."),
     ("When should I start planning?", "Winter. In towns with secondary water, the rebate program's site visits pause from October 15 to April 15. If your plan and measurements are ready, you can apply as soon as visits start again in spring."),
 ])}
 </main>
 {cta_band("Want a real number for your yard?")}'''
+
+STRIP_SLUG = "park-strip-landscaping-utah-county"
+
+def page_parkstrip(link):
+    rules = [
+        "Approved before any grass comes out, and the lawn has to be alive at the first visit",
+        "At least 200 sq ft in total. Areas can be combined, so a park strip can be paired with part of the front lawn",
+        "Plants cover at least half the strip at maturity, and none grow taller than 24 inches",
+        "3 to 4 inches of rock or mulch. Rubber mulch isn't allowed",
+        "Drip on its own zone with a filter and pressure reducer. No micro-sprays, bubblers or soaker hoses",
+        "No rebate trees in park strips narrower than 10 feet",
+        "No leftover strip of lawn narrower than 8 feet",
+    ]
+    return f'''
+<main id="main">
+{service_hero("Park strips", "Park strip conversions", 'Park strip landscaping <span class="hl">in Utah County</span>',
+   "Turn the strip of grass between the sidewalk and the street into rock, mulch and low-water plants on drip. We plan it to the rebate program's rules, do the dirt work and the sprinkler changes, and help with the application.",
+   "broken-sprinkler-head-repair", "Broken sprinkler head spraying water onto a park strip and sidewalk", "Spray heads in a park strip water the sidewalk too", link)}
+
+<section class="section section-alt" aria-labelledby="why-h">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="label">Why start here</p>
+      <h2 id="why-h">The park strip is the easiest lawn to give up</h2>
+    </div>
+    {fixes([
+        ("Spray can't water it well", "Sprinklers aren't designed for areas narrower than about 8 feet. In a park strip, a lot of the water lands on the sidewalk and runs down the gutter."),
+        ("Nobody uses it", "It still needs mowing, edging and water every week, but nobody plays or sits on it."),
+        ("Everyone sees it", "It's the first thing people see from the street. A clean, planted strip makes the whole yard look finished."),
+    ])}
+  </div>
+</section>
+
+<section class="section" aria-labelledby="rules-h">
+  <div class="wrap split">
+    {img("drip-irrigation-planting-bed", "Mulched planting bed with drip irrigation along a stone wall", "(max-width: 860px) 100vw, 50vw")}
+    <div class="split-copy">
+      <p class="label">Rebate rules</p>
+      <h2 id="rules-h">What the Utah County rebate requires for park strips</h2>
+      <p>Park strips go through Central Utah Water's Landscape Incentive Program on Utah Water Savers. These are the rules that matter most:</p>
+      <ul class="checks">{"".join(f"<li>{r}</li>" for r in rules)}</ul>
+      <p>The rate depends on your town. Springville, Mapleton, Provo and Orem pay $1.50 per sq ft of lawn replaced. Spanish Fork, Salem and Payson pay $3.00. <a class="textlink" href="{link(COST_SLUG)}#rebate-calculator">Estimate your rebate</a></p>
+      <p class="fine">From the Central Utah Water program pages on Utah Water Savers, October 2026. Rules can change, and your city may have its own park strip rules.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" aria-labelledby="how-h">
+  <div class="wrap">
+    <div class="section-head"><p class="label">How we do it</p><h2 id="how-h">How we convert a park strip</h2></div>
+    {fixes([
+        ("Measure &amp; plan", "We measure the strip, take the photos and draw the 2D plan the rebate application asks for."),
+        ("Approval visit", "The program visits and approves the project before any grass comes out."),
+        ("Turf out", "Sod removed and the strip dug down a few inches below the sidewalk, so rock and mulch stay in the strip."),
+        ("Sprinkler changes", "Spray heads capped and a new drip zone added, with the filter and pressure reducer the program requires."),
+        ("Plants &amp; mulch", "Low plants that stay under 24 inches, 3 to 4 inches of rock or mulch, and room by the curb to step out of a parked car."),
+        ("Final inspection", "We run the drip with you so it's working and leak-free when the program comes back to sign off."),
+    ])}
+  </div>
+</section>
+
+<section class="section" aria-labelledby="splants-h">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="label">Park strip ideas</p>
+      <h2 id="splants-h">Low plants that work in a Utah park strip</h2>
+      <p class="lede">Park strips get full sun, reflected heat off the concrete and road salt in winter, and the rebate caps plants at 24 inches. These stay low and handle all of it.</p>
+    </div>
+    {fixes([
+        ("Creeping thyme", "A flat, tough ground cover that fills in around stepping stones and smells good when you walk on it."),
+        ("Sedum &amp; hardy ice plant", "Low succulents that spread between rocks and bloom in summer."),
+        ("Blue fescue", "Small blue mounds of grass that look good year-round."),
+        ("Pineleaf penstemon", "A low Utah-friendly penstemon with orange-red flowers that hummingbirds like."),
+        ("Compact catmint", "Short varieties like Little Trudy give purple color most of the summer."),
+        ("Kinnikinnick", "An evergreen ground cover for strips with some shade from street trees."),
+    ])}
+    <p class="source">We check the mature height of every plant against the 24-inch rule before it goes in.</p>
+  </div>
+</section>
+{faq_section([
+    ("How much does a park strip conversion cost?", f'Park strips are small, so setup and hauling make up a bigger share of the job, and the price per square foot usually lands toward the high end of the ${COST_LOW} to ${COST_HIGH} per sq ft range for xeriscaping. The rebate takes a real bite out of it. Estimates are free. See <a class="textlink" href="{link(COST_SLUG)}">xeriscaping costs in Utah County</a>.'),
+    ("Does my park strip qualify for the rebate on its own?", "Only if it's at least 200 sq ft. Many aren't: a 6 by 30 foot strip is 180 sq ft. Areas can be combined to reach the minimum, so most people pair the park strip with part of the front lawn or a side yard."),
+    ("Can I just put rock in my park strip?", "Not if you want the rebate. Plants have to cover at least half the strip at maturity. A mix of rock or mulch and low plants also looks better and stays cooler than solid rock."),
+    ("Can I plant a tree in my park strip?", "The rebate doesn't pay for trees in park strips narrower than 10 feet. Cities also have their own rules for street trees, so check with yours before planting one."),
+    ("Is this the same as Flip Your Strip?", "Flip Your Strip was the name of Central Utah Water's original park strip program, and Salt Lake County programs still use it. In Utah County today, park strips go through the Landscape Incentive Program on Utah Water Savers."),
+    ("When should I do it?", "Plan it in winter. In towns with secondary water, the program's site visits pause from October 15 to April 15. With the plan and photos ready, you can apply as soon as visits start again in spring."),
+])}
+{area_section()}
+</main>
+{cta_band("Ready to get rid of the park strip lawn?")}'''
 
 PAGES = [
     {"slug": "", "file": "index", "fn": page_home,
@@ -878,6 +961,10 @@ PAGES = [
      "title": "Xeriscaping Cost in Utah County (2026) + Rebate Calculator | Vessel Groundworks",
      "desc": f"What xeriscaping costs in Utah County: about ${COST_LOW}–${COST_HIGH} per sq ft, plus $1.50–$3.00 per sq ft back from the lawn-replacement rebate. Free rebate calculator and estimates.",
      "schema": [breadcrumb("Xeriscaping cost", COST_SLUG)]},
+    {"slug": STRIP_SLUG, "file": STRIP_SLUG, "fn": page_parkstrip,
+     "title": "Park Strip Landscaping in Utah County + Rebate Rules | Vessel Groundworks",
+     "desc": "Turn your park strip into rock, mulch and low-water plants on drip. Utah County rebate rules, plant ideas and installs by Vessel Groundworks in Springville.",
+     "schema": [service_schema("Park strip landscaping", STRIP_SLUG, "Park strip conversions to water-wise landscaping with drip irrigation across Utah County."), breadcrumb("Park strips", STRIP_SLUG)]},
 ]
 
 def build():
