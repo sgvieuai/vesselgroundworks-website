@@ -16,8 +16,8 @@ SITE = ROOT if REPO_MODE else os.path.join(ROOT, "site")
 PREVIEW = os.path.join(ROOT, "preview")
 DOMAIN = "https://vesselgroundworks.com"
 
-PHONE_DISPLAY = "(385) 231-8503"
-PHONE_TEL = "+13852318503"
+PHONE_DISPLAY = "(385) 398-9355"
+PHONE_TEL = "+13853989355"
 EMAIL = "sergio@vesselgroundworks.com"
 GOOGLE_REVIEWS = "https://www.google.com/maps?cid=12567048390870205497"
 FACEBOOK = "https://www.facebook.com/vesselgroundworks"
@@ -284,7 +284,7 @@ BUSINESS = {
     "url": DOMAIN + "/",
     "logo": DOMAIN + "/images/vessel-groundworks-logo-transparent.png",
     "image": DOMAIN + "/images/og-vessel-groundworks.jpg",
-    "telephone": "+1-385-231-8503",
+    "telephone": "+1-385-398-9355",
     "email": EMAIL,
     "description": "Landscaping, sprinkler repair, xeriscaping and excavation in Springville and across Utah County.",
     "address": {"@type": "PostalAddress", "addressLocality": "Springville", "addressRegion": "UT", "postalCode": "84663", "addressCountry": "US"},
@@ -792,7 +792,7 @@ def page_cost(link):
 PAGES = [
     {"slug": "", "file": "index", "fn": page_home,
      "title": "Vessel Groundworks | Landscaping & Sprinkler Repair in Springville, UT",
-     "desc": "Sprinkler repair, xeriscaping and excavation in Springville and across Utah County. 5.0 on Google, free estimates, hablamos español. Call or text (385) 231-8503.",
+     "desc": "Sprinkler repair, xeriscaping and excavation in Springville and across Utah County. 5.0 on Google, free estimates, hablamos español. Call or text (385) 398-9355.",
      "schema": [BUSINESS]},
     {"slug": "sprinkler-repair-in-utah-county", "file": "sprinkler-repair-in-utah-county", "fn": page_sprinklers,
      "title": "Sprinkler Repair in Utah County | Vessel Groundworks",
@@ -800,7 +800,7 @@ PAGES = [
      "schema": [service_schema("Sprinkler repair", "sprinkler-repair-in-utah-county", "Sprinkler and irrigation repair across Utah County."), breadcrumb("Sprinkler repair", "sprinkler-repair-in-utah-county")]},
     {"slug": "sprinkler-blowout-in-utah-county", "file": "sprinkler-blowout-in-utah-county", "fn": page_blowout,
      "title": "Sprinkler Blowouts & Winterizing in Utah County | Vessel Groundworks",
-     "desc": "Fall sprinkler blowouts in Springville, Spanish Fork, Provo, Orem and across Utah County. Every zone cleared with compressed air before the hard freeze. Call or text (385) 231-8503.",
+     "desc": "Fall sprinkler blowouts in Springville, Spanish Fork, Provo, Orem and across Utah County. Every zone cleared with compressed air before the hard freeze. Call or text (385) 398-9355.",
      "schema": [service_schema("Sprinkler blowout and winterization", "sprinkler-blowout-in-utah-county", "Fall sprinkler blowouts and irrigation winterizing across Utah County."), breadcrumb("Sprinkler blowouts", "sprinkler-blowout-in-utah-county")]},
     {"slug": "xeriscaping-in-utah-county", "file": "xeriscaping-in-utah-county", "fn": page_xeriscape,
      "title": "Xeriscaping & Low-Water Landscaping in Utah County | Vessel Groundworks",
