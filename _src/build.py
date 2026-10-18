@@ -22,7 +22,7 @@ PHONE_DISPLAY = "(385) 398-9355"
 PHONE_TEL = "+13853989355"
 EMAIL = "sergio@vesselgroundworks.com"
 GOOGLE_REVIEWS = "https://www.google.com/maps?cid=12567048390870205497"
-FACEBOOK = "https://www.facebook.com/vesselgroundworks"
+FACEBOOK = "https://www.facebook.com/profile.php?id=61595151076525"
 INSTAGRAM = "https://www.instagram.com/vesselgroundworks"
 TOWNS = ["Springville", "Mapleton", "Spanish Fork", "Salem", "Payson", "Provo", "Orem"]
 
@@ -294,7 +294,7 @@ BUSINESS = {
     "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], "opens": "08:00", "closes": "18:00"}],
     "knowsLanguage": ["en", "es"],
     "foundingDate": "2021-05-02",
-    "sameAs": [GOOGLE_REVIEWS],  # add FACEBOOK / INSTAGRAM back once those pages exist
+    "sameAs": [GOOGLE_REVIEWS, FACEBOOK],  # add INSTAGRAM once that account exists
     "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Services", "itemListElement": [
         {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Sprinkler repair", "url": DOMAIN + "/sprinkler-repair-in-utah-county"}},
         {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Sprinkler blowout and winterization", "url": DOMAIN + "/sprinkler-blowout-in-utah-county"}},
@@ -345,7 +345,7 @@ def footer(link):
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand"><img src="images/logo-white-480.png" width="480" height="145" alt="Vessel Groundworks" loading="lazy"><p>Landscaping, sprinkler repair, xeriscaping and excavation in Springville and across Utah County.</p></div>
-      <div><h4>Contact</h4><ul><li><a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a></li><li><a href="mailto:{EMAIL}">{EMAIL}</a></li><li>Mon–Sat, 8am–6pm</li><li>Se habla español</li></ul></div>
+      <div><h4>Contact</h4><ul><li><a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a></li><li><a href="mailto:{EMAIL}">{EMAIL}</a></li><li>Mon–Sat, 8am–6pm</li><li>Se habla español</li><li><a href="{escape(FACEBOOK)}" target="_blank" rel="noopener">Facebook</a></li></ul></div>
       <div><h4>Services</h4><ul>{svc}<li><a href="{GOOGLE_REVIEWS}" target="_blank" rel="noopener">Google reviews</a></li></ul></div>
       <div><h4>Areas</h4><ul>{towns}</ul></div>
     </div>
