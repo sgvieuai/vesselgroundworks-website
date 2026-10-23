@@ -997,11 +997,10 @@ def page_walls(link):
   <div class="wrap split">
     {img("excavation-next-to-house", "Deep excavation beside a house with a skid steer in the driveway", "(max-width: 860px) 100vw, 50vw")}
     <div class="split-copy">
-      <p class="label">Permits &amp; tall walls</p>
-      <h2 id="permit-h">When a retaining wall needs a permit</h2>
-      <p>In Springville, a retaining wall more than 4 feet tall, counting the footing, needs a building permit. Utah cities build to the same state building code, so the 4-foot line is common across Utah County, but check with your city. A wall that holds up a driveway, a steep slope or a building can need a permit even when it's shorter.</p>
-      <p>We build tall walls. Anything over 4 feet is built to an engineered design, with the permit in place before work starts. A big grade change is often better as two terraced walls than one tall one, and we'll tell you which fits your yard.</p>
-      <p class="fine">From Springville City's building permit guidelines, October 2026. Requirements vary by city.</p>
+      <p class="label">Big grade changes</p>
+      <h2 id="permit-h">From garden walls to steep lots</h2>
+      <p>We build everything from a low wall around a planting bed to tall walls that turn a steep lot into usable yard. On a big grade change, two or three terraced walls often look better and give you more level space than one tall wall, and we'll show you both options.</p>
+      <p>We do the excavation ourselves, so the dig-out, base, drainage and wall are all one job with one crew and one price.</p>
     </div>
   </div>
 </section>
@@ -1009,8 +1008,7 @@ def page_walls(link):
 {area_section()}
 {faq_section([
     ("Boulder or block: which retaining wall is better?", "Neither is better everywhere. Boulders look natural and handle big grade changes with fewer pieces. Block gives cleaner lines, tight curves, steps and caps, and fits narrow spaces. We'll tell you which fits your yard and budget at the free estimate."),
-    ("Do I need a permit for a retaining wall in Utah?", "In Springville, walls more than 4 feet tall, footing included, need a building permit, and a wall holding up a driveway, a steep slope or a building can need one even when it's shorter. Most Utah County cities draw the line in the same place, but check with yours."),
-    ("How tall can you build a retaining wall?", "As tall as the site needs. Walls over 4 feet are built to an engineered design with a permit. A tall grade change is often better as two or three terraced walls."),
+    ("How tall can you build a retaining wall?", "As tall as your yard needs. On a big grade change, two or three terraced walls often look better and give you more usable space than one tall wall."),
     ("Why do retaining walls fail?", "Usually water. Wet soil pushes hard on the back of a wall, and freezing makes it worse. A compacted base, drain rock, a drain pipe and backfill compacted in layers are what keep a wall straight."),
     ("Can you get equipment into my backyard?", "We use compact equipment like skid steers and mini excavators for residential yards. Send a photo of your gate or side yard and we'll tell you what fits."),
     ("How much does a retaining wall cost?", "It depends on the height, the length, the material and how easy it is to get equipment in. Estimates are free, and you get a clear price before any work starts."),
