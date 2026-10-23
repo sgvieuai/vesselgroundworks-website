@@ -15,7 +15,7 @@ REPO_MODE = os.path.exists(os.path.join(ROOT, "CNAME"))
 SITE = ROOT if REPO_MODE else os.path.join(ROOT, "site")
 PREVIEW = os.path.join(ROOT, "preview")
 DOMAIN = "https://vesselgroundworks.com"
-LASTMOD = "2026-10-16"  # sitemap date; bump when page content changes
+LASTMOD = "2026-10-22"  # sitemap date; bump when page content changes
 
 REPAIR_RATE = 95  # sprinkler repair labor, $/hour, plus parts, 1-hour minimum
 PHONE_DISPLAY = "(385) 398-9355"
@@ -300,6 +300,8 @@ BUSINESS = {
         {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Sprinkler blowout and winterization", "url": DOMAIN + "/sprinkler-blowout-in-utah-county"}},
         {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Xeriscaping and low-water landscaping", "url": DOMAIN + "/xeriscaping-in-utah-county"}},
         {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Excavation, grading and site prep", "url": DOMAIN + "/excavation-in-utah-county"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Retaining walls", "url": DOMAIN + "/retaining-walls-utah-county"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "New home landscaping", "url": DOMAIN + "/new-home-landscaping-utah-county"}},
     ]},
 }
 
@@ -338,7 +340,8 @@ def header(current, link):
 
 def footer(link):
     svc = "".join(f'<li><a href="{link(s)}">{t}</a></li>' for s, t in NAV)
-    svc += f'<li><a href="{link(COST_SLUG)}">Xeriscaping costs</a></li><li><a href="{link(STRIP_SLUG)}">Park strips</a></li>'
+    svc += (f'<li><a href="{link(WALLS_SLUG)}">Retaining walls</a></li><li><a href="{link(NEWBUILD_SLUG)}">New home yards</a></li>'
+            f'<li><a href="{link(COST_SLUG)}">Xeriscaping costs</a></li><li><a href="{link(STRIP_SLUG)}">Park strips</a></li>')
     towns = "".join(f"<li>{t}</li>" for t in TOWNS)
     return f'''
 <footer class="site-foot">
@@ -383,8 +386,8 @@ def page_home(link):
          "Rock, drought-tolerant plants, drip irrigation and as much lawn as you want to keep. Lower water bills and less mowing, and the yard still looks finished.",
          ["Rock &amp; gravel", "Sod &amp; lawn reduction", "Park strips", "Drip irrigation", "Concrete curbing", "Planting"]),
         ("excavation-in-utah-county", "Excavation, grading &amp; site prep", "excavation-from-excavator-cab", "View from an excavator cab digging a deep residential excavation",
-         "The work under the finished project: grading, trenching, and prep for concrete, drainage and retaining walls, done with compact equipment that fits residential yards.",
-         ["Grading", "Trenching", "Concrete prep", "Drainage", "Retaining wall prep"]),
+         "The work under the finished project: grading, trenching, concrete prep and drainage, plus boulder and block retaining walls, done with compact equipment that fits residential yards.",
+         ["Grading", "Trenching", "Concrete prep", "Drainage", "Retaining walls"]),
     ]
     rows = "".join(f'''
       <article class="svc">
@@ -425,8 +428,8 @@ def page_home(link):
     ])
 
     faq = faq_section([
-        ("What services does Vessel Groundworks offer?", "Sprinkler repair and irrigation, xeriscaping and low-water landscaping, and excavation work like grading, trenching, drainage, concrete prep and retaining wall prep."),
-        ("Do you take small jobs as well as big projects?", "Yes. We handle everything from a single broken sprinkler head to full landscape installs and multi-phase excavation projects."),
+        ("What services does Vessel Groundworks offer?", f'Sprinkler repair and irrigation, xeriscaping and low-water landscaping, <a class="textlink" href="{link(WALLS_SLUG)}">boulder and block retaining walls</a>, and excavation work like grading, trenching, drainage and concrete prep.'),
+        ("Do you take small jobs as well as big projects?", f'Yes. We handle everything from a single broken sprinkler head to <a class="textlink" href="{link(NEWBUILD_SLUG)}">full yard installs on new builds</a> and multi-phase excavation projects.'),
         ("What areas do you serve?", "We're based in Springville and work across Utah County, including Mapleton, Spanish Fork, Salem, Payson, Provo and Orem. Larger projects can go anywhere along the Wasatch Front. Outside that? Text us and ask."),
         ("Do you specialize in water-efficient landscaping?", "Yes. Rock work, drought-tolerant planting, drip irrigation, grading and edging are a big part of what we do, and we can explain how Utah's lawn-replacement rebate works."),
         ("Can you do the groundwork before landscaping or concrete?", "Yes. We do the excavation, grading, trenching, drainage and prep so the finished landscape or concrete starts on a solid, level base."),
@@ -599,7 +602,7 @@ def page_xeriscape(link):
   <div class="wrap">
     <div class="section-head"><p class="label">What we install</p><h2 id="xfix-h">What goes into a low-water yard</h2></div>
     {fixes([
-        ("Full xeriscape installs", "Complete low-water yard transformations, from turf removal and grading to the finished landscape."),
+        ("Full xeriscape installs", f'Complete low-water yard transformations, from turf removal and grading to the finished landscape. Building new? See <a class="textlink" href="{link(NEWBUILD_SLUG)}">new home landscaping</a>.'),
         ("Decorative rock &amp; gravel", "Rock and gravel beds, borders and ground cover that hold up to Utah summers and winters."),
         ("Sod &amp; lawn reduction", "Keep a smaller, easier lawn where you actually use it, and replace the rest with water-wise landscaping."),
         ("Drip irrigation", "Drip lines to plants, trees and beds, so water goes to roots instead of rock."),
@@ -698,7 +701,7 @@ def page_excavation(link):
         ("Trenching", "Trenches for irrigation, drainage, utilities and landscape lines."),
         ("Concrete prep", "Dig-out, forms and compacted base for patios, walkways, pads, curbing and driveway extensions."),
         ("Drainage prep", "Grading and trenching to move water where it should go."),
-        ("Retaining wall prep", "Excavation and base work for landscape and boulder retaining walls."),
+        ("Retaining walls", f'Boulder and block walls, from the dig-out, base and drainage to the finished wall. <a class="textlink" href="{link(WALLS_SLUG)}">About retaining walls</a>'),
         ("Demo &amp; removal", "Remove old concrete, soil, grass and rock to clear the way for the new project."),
     ])}
   </div>
@@ -725,7 +728,7 @@ def page_excavation(link):
 {reviews_section(["aaron", "brandon", "joshua"], "Solid work, done right")}
 {area_section()}
 {faq_section([
-    ("What size jobs do you take on?", "Mostly residential: yards, side yards, driveway extensions, pads, trenches and retaining wall prep. Larger projects can go anywhere along the Wasatch Front."),
+    ("What size jobs do you take on?", f'Mostly residential: yards, side yards, driveway extensions, pads, trenches, retaining walls and <a class="textlink" href="{link(NEWBUILD_SLUG)}">full yards on new builds</a>. Larger projects can go anywhere along the Wasatch Front.'),
     ("Can you get equipment into my backyard?", "We use compact equipment like mini excavators and skid steers for residential work. Send a photo of your gate or side yard and we'll tell you what fits."),
     ("Will you prep for my concrete or landscape contractor?", "Yes. We do the dig-out, grading and base so the next trade starts on a solid, level base."),
     ("Do underground utilities get marked first?", "Yes. Before any digging, buried lines are marked through Blue Stakes of Utah, the state's 811 service."),
@@ -947,6 +950,164 @@ def page_parkstrip(link):
 </main>
 {cta_band("Ready to get rid of the park strip lawn?")}'''
 
+WALLS_SLUG = "retaining-walls-utah-county"
+
+def page_walls(link):
+    return f'''
+<main id="main">
+{service_hero("Retaining walls", "Boulder &amp; block walls", 'Retaining walls <span class="hl">in Springville &amp; Utah County</span>',
+   "Boulder and block retaining walls for sloped yards, terraced beds and new-build lots. We dig it out, build the base and drainage, and set the wall, so one crew handles the whole job.",
+   "boulder-wall-skid-steer", "Skid steer setting boulders for a tiered retaining wall beside a new home", "Tiered boulder walls on a new lot · Utah County", link)}
+
+<section class="section section-alt" aria-labelledby="wtype-h">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="label">What we build</p>
+      <h2 id="wtype-h">Boulder walls, block walls and terraces</h2>
+      <p class="lede">The right wall depends on the look you want, how much soil it's holding back, and how much room there is to work.</p>
+    </div>
+    {fixes([
+        ("Boulder walls", "Large rock set with equipment for a natural look. A good fit for big grade changes, hillsides and xeriscape yards."),
+        ("Block walls", "Interlocking retaining wall block for clean lines, curves, corners, steps and caps. Taller block walls get geogrid tied back into the hill."),
+        ("Terraced walls", "A steep slope broken into two or three shorter walls with level beds between them. Easier to plant, water and mow around than one tall wall."),
+        ("Walls on new lots", f'A lot of new builds in Utah County sit on a slope. We grade the lot and build the walls as part of the full yard. <a class="textlink" href="{link(NEWBUILD_SLUG)}">New home landscaping</a>'),
+    ])}
+  </div>
+</section>
+
+<section class="section" aria-labelledby="build-h">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="label">How we build them</p>
+      <h2 id="build-h">What keeps a retaining wall standing</h2>
+      <p class="lede">Most walls that bow, lean or fall over fail because of what's under and behind them, not the rock or block you see.</p>
+    </div>
+    {fixes([
+        ("A solid base", "We dig below grade, compact a gravel base, and bury the first row so the bottom of the wall can't slide out."),
+        ("Drainage behind the wall", "Clean drain rock and a perforated drain pipe behind the wall. Wet soil pushes hard on a wall, and Utah's freeze and thaw makes it worse."),
+        ("Backfill in layers", "Soil behind the wall goes in and gets compacted a layer at a time, not dumped in all at once."),
+        ("Leaning into the hill", "Each row steps back slightly into the slope, and taller block walls get geogrid reinforcement."),
+        ("Utilities marked first", "Buried lines are marked through Blue Stakes of Utah before any digging starts."),
+        ("Sprinklers still working", "We reroute sprinkler lines around the wall and run drip to the new beds, since we do irrigation too."),
+    ])}
+  </div>
+</section>
+
+<section class="section section-alt" aria-labelledby="permit-h">
+  <div class="wrap split">
+    {img("excavation-next-to-house", "Deep excavation beside a house with a skid steer in the driveway", "(max-width: 860px) 100vw, 50vw")}
+    <div class="split-copy">
+      <p class="label">Permits &amp; tall walls</p>
+      <h2 id="permit-h">When a retaining wall needs a permit</h2>
+      <p>In Springville, a retaining wall more than 4 feet tall, counting the footing, needs a building permit. Utah cities build to the same state building code, so the 4-foot line is common across Utah County, but check with your city. A wall that holds up a driveway, a steep slope or a building can need a permit even when it's shorter.</p>
+      <p>We build tall walls. Anything over 4 feet is built to an engineered design, with the permit in place before work starts. A big grade change is often better as two terraced walls than one tall one, and we'll tell you which fits your yard.</p>
+      <p class="fine">From Springville City's building permit guidelines, October 2026. Requirements vary by city.</p>
+    </div>
+  </div>
+</section>
+{reviews_section(["aaron", "brandon", "joshua"], "Walls that hold up")}
+{area_section()}
+{faq_section([
+    ("Boulder or block: which retaining wall is better?", "Neither is better everywhere. Boulders look natural and handle big grade changes with fewer pieces. Block gives cleaner lines, tight curves, steps and caps, and fits narrow spaces. We'll tell you which fits your yard and budget at the free estimate."),
+    ("Do I need a permit for a retaining wall in Utah?", "In Springville, walls more than 4 feet tall, footing included, need a building permit, and a wall holding up a driveway, a steep slope or a building can need one even when it's shorter. Most Utah County cities draw the line in the same place, but check with yours."),
+    ("How tall can you build a retaining wall?", "As tall as the site needs. Walls over 4 feet are built to an engineered design with a permit. A tall grade change is often better as two or three terraced walls."),
+    ("Why do retaining walls fail?", "Usually water. Wet soil pushes hard on the back of a wall, and freezing makes it worse. A compacted base, drain rock, a drain pipe and backfill compacted in layers are what keep a wall straight."),
+    ("Can you get equipment into my backyard?", "We use compact equipment like skid steers and mini excavators for residential yards. Send a photo of your gate or side yard and we'll tell you what fits."),
+    ("How much does a retaining wall cost?", "It depends on the height, the length, the material and how easy it is to get equipment in. Estimates are free, and you get a clear price before any work starts."),
+])}
+</main>
+{cta_band("Got a slope that needs a wall?", "Text Sergio a photo of the area for a free estimate. Monday to Saturday, 8am to 6pm.")}'''
+
+NEWBUILD_SLUG = "new-home-landscaping-utah-county"
+
+def page_newbuild(link):
+    ba = f'''
+      <div class="ba">
+        <div class="ba-pair">
+          <figure>{img("grading-with-mini-excavator", "Mini excavator grading the bare front yard of a newer two-story home", "(max-width: 760px) 50vw, 25vw")}<span class="tag">Before</span></figure>
+          <figure>{img("new-sod-front-lawn", "Same home with a new sod front lawn and walkway", "(max-width: 760px) 50vw, 25vw")}<span class="tag after">After</span></figure>
+        </div>
+        <h3>Graded and sodded front yard</h3>
+        <p>Dirt yard graded away from the house, prepped, and finished with new sod.</p>
+      </div>
+      <div class="ba">
+        <figure style="margin:0">{img("boulder-wall-skid-steer", "Tiered boulder retaining walls going in beside a new home", "(max-width: 760px) 100vw, 50vw")}</figure>
+        <h3>Boulder walls on a sloped lot</h3>
+        <p>Tiered boulder walls set with a skid steer to turn a slope into usable yard.</p>
+      </div>'''
+    return f'''
+<main id="main">
+{service_hero("New home landscaping", "Full yard installs", 'New home landscaping <span class="hl">in Utah County</span>',
+   "Moved into a new build with a dirt yard? We handle the whole thing: grading, sprinklers, sod, rock, curbing, planting, and the retaining walls a sloped lot needs. One crew from bare dirt to a finished yard.",
+   "new-sod-front-lawn", "New sod front lawn in front of a newer two-story home", "New sod front lawn · Utah County", link)}
+
+<section class="section section-alt" aria-labelledby="order-h">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="label">What's included</p>
+      <h2 id="order-h">Everything a new yard needs, in the right order</h2>
+      <p class="lede">Each step sets up the next one. Doing them in order, with one crew, is how you avoid tearing up new sod to fix a sprinkler line.</p>
+    </div>
+    {fixes([
+        ("1 · Grade &amp; drainage", "Final grade set so water runs away from the foundation, and the low spots the builder left behind fixed."),
+        ("2 · Walls &amp; hardscape prep", f'Retaining walls for sloped lots, plus the dig-out and base for pads, walkways and curbing. <a class="textlink" href="{link(WALLS_SLUG)}">Retaining walls</a>'),
+        ("3 · Sprinkler system", "Zones laid out for even coverage, valves and manifold, drip for beds and trees, and a smart controller."),
+        ("4 · Sod &amp; lawn", "Lawn where you'll actually use it, on ground that's prepped and leveled first."),
+        ("5 · Rock, beds &amp; planting", "Decorative rock, curbing and edging, and drought-tolerant plants on drip."),
+        ("6 · Walkthrough", "We run every zone with you and show you how to set the controller for the season."),
+    ])}
+  </div>
+</section>
+
+<section class="section" id="work" aria-labelledby="nwork-h">
+  <div class="wrap">
+    <div class="section-head"><p class="label">Our work</p><h2 id="nwork-h">New yards we've built</h2></div>
+    <div class="ba-grid">{ba}</div>
+    <div style="margin-top:clamp(28px,4vw,44px)">{gallery([
+        ("excavator-trenching", "Excavator digging a trench at a new home site", "Trenching at a new build"),
+        ("new-sod-backyard", "Backyard with fresh sod next to a deck", "New sod backyard"),
+        ("sprinkler-valve-manifold-install", "Three-valve sprinkler manifold assembled before burial", "New valve manifold"),
+    ])}</div>
+  </div>
+</section>
+
+<section class="section section-alt" aria-labelledby="wise-h">
+  <div class="wrap split">
+    {img("sod-and-rock-front-yard-utah-county", "Front yard with new sod, rock borders and ornamental grasses", "(max-width: 860px) 100vw, 50vw")}
+    <div class="split-copy">
+      <p class="label">Water-wise from day one</p>
+      <h2 id="wise-h">Plan a low-water yard now, not later</h2>
+      <p>It costs less to build a water-wise yard from the start than to tear out lawn in a few years. Keep lawn where kids and dogs use it, put beds and trees on drip, and skip grass in narrow strips that spray heads can't water well.</p>
+      <p>A growing number of Utah cities have water-wise rules for new yards, like no lawn in narrow park strips, and many HOAs have landscaping rules of their own. We check yours before we design.</p>
+      <p><b>About rebates:</b> Utah's lawn-replacement rebate pays to replace existing lawn, so a bare new-build yard usually doesn't qualify. Building it water-wise the first time is where the savings are. <a class="textlink" href="{link("xeriscaping-in-utah-county")}">Xeriscaping</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="time-h">
+  <div class="wrap">
+    <div class="section-head"><p class="label">Timing</p><h2 id="time-h">Plan in winter, build in spring</h2></div>
+    {fixes([
+        ("Winter: design and get on the schedule", "We measure the lot, plan the yard and price it, so you're near the top of the list when the ground thaws."),
+        ("Spring: dirt work and sprinklers first", "Grading, walls and the sprinkler system go in first. Sod and plants need water, so they go in once secondary water is back on."),
+        ("Phase it if you need to", "Front yard now and backyard next year is common. We set the grades and sprinkler mainline so the next phase ties in cleanly."),
+    ])}
+  </div>
+</section>
+{reviews_section(["brandon", "aaron", "joshua"], "One crew for the whole yard")}
+{area_section()}
+{faq_section([
+    ("Do you install the sprinkler system too?", "Yes. We lay out the zones, install the valves, heads and drip, and set up a smart controller. And since we repair sprinklers too, you have someone to call later."),
+    ("Can you do the front yard now and the back later?", "Yes. Many new-build owners do the front first. We set the grades and sprinkler mainline so the backyard ties in cleanly when you're ready."),
+    ("My lot is on a slope. Can you handle that?", f'Yes. Grading, terraces and retaining walls are part of what we do. See <a class="textlink" href="{link(WALLS_SLUG)}">retaining walls</a>.'),
+    ("Does a new-build yard qualify for Utah's lawn-replacement rebate?", "Usually not. That rebate pays to replace existing lawn, and the program has to see and approve the lawn before it comes out. A water-wise design from the start saves you the water instead."),
+    ("Can you work with my HOA's landscaping rules?", "Yes. Send us the rules with your plans and we'll design the yard to them."),
+    ("When should I book?", "Winter is the best time to plan. Sod and plants need water, so most installs happen in spring once secondary water is back on, and the schedule fills up fast."),
+    ("Are estimates free?", "Yes. We'll walk the lot with you and give you a clear price before any work starts."),
+])}
+</main>
+{cta_band("Moving into a new build?", "Call or text Sergio to walk the lot and get a free estimate. Monday to Saturday, 8am to 6pm.")}'''
+
 PAGES = [
     {"slug": "", "file": "index", "fn": page_home,
      "title": "Landscaping & Sprinkler Repair in Springville, UT | Vessel Groundworks",
@@ -978,6 +1139,14 @@ PAGES = [
      "title": "Park Strip Landscaping in Utah County + Rebate Rules | Vessel Groundworks",
      "desc": "Turn your park strip into rock, mulch and low-water plants on drip. Utah County rebate rules, plant ideas and installs by Vessel Groundworks in Springville.",
      "schema": [service_schema("Park strip landscaping", STRIP_SLUG, "Park strip conversions to water-wise landscaping with drip irrigation across Utah County."), breadcrumb("Park strips", STRIP_SLUG)]},
+    {"slug": WALLS_SLUG, "file": WALLS_SLUG, "fn": page_walls,
+     "title": "Retaining Walls in Springville & Utah County | Vessel Groundworks",
+     "desc": "Boulder and block retaining walls in Springville, Mapleton, Spanish Fork and across Utah County. Base, drainage and terraced walls built to last. Free estimates.",
+     "schema": [service_schema("Retaining walls", WALLS_SLUG, "Boulder and block retaining walls, terraced walls and the excavation, base and drainage behind them, across Utah County."), breadcrumb("Retaining walls", WALLS_SLUG)]},
+    {"slug": NEWBUILD_SLUG, "file": NEWBUILD_SLUG, "fn": page_newbuild,
+     "title": "New Home Landscaping in Utah County: Full Yard Installs | Vessel Groundworks",
+     "desc": "Full yard installs for new builds in Utah County: grading, sprinklers, sod, rock, planting and retaining walls. One crew from bare dirt to a finished yard. Free estimates.",
+     "schema": [service_schema("New home landscaping", NEWBUILD_SLUG, "Full landscape installs for new construction across Utah County: grading, sprinkler systems, sod, rock, planting and retaining walls."), breadcrumb("New home landscaping", NEWBUILD_SLUG)]},
 ]
 
 def build():
