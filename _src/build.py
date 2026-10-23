@@ -993,12 +993,12 @@ def page_walls(link):
   </div>
 </section>
 
-<section class="section section-alt" aria-labelledby="permit-h">
+<section class="section section-alt" aria-labelledby="grade-h">
   <div class="wrap split">
     {img("excavation-next-to-house", "Deep excavation beside a house with a skid steer in the driveway", "(max-width: 860px) 100vw, 50vw")}
     <div class="split-copy">
       <p class="label">Big grade changes</p>
-      <h2 id="permit-h">From garden walls to steep lots</h2>
+      <h2 id="grade-h">From garden walls to steep lots</h2>
       <p>We build everything from a low wall around a planting bed to tall walls that turn a steep lot into usable yard. On a big grade change, two or three terraced walls often look better and give you more level space than one tall wall, and we'll show you both options.</p>
       <p>We do the excavation ourselves, so the dig-out, base, drainage and wall are all one job with one crew and one price.</p>
     </div>
