@@ -1084,9 +1084,9 @@ def page_newbuild(link):
 
 <section class="section" aria-labelledby="time-h">
   <div class="wrap">
-    <div class="section-head"><p class="label">Timing</p><h2 id="time-h">No need to wait for spring</h2></div>
+    <div class="section-head"><p class="label">Timing</p><h2 id="time-h">We can start now</h2></div>
     {fixes([
-        ("We can start now", "Grading, retaining walls, hardscape prep and the sprinkler system can get going now, so your yard is done sooner."),
+        ("Ready when you are", "Grading, retaining walls, hardscape prep and the sprinkler system can get going right away, so your yard is done sooner."),
         ("Phase it if you need to", "Front yard now and backyard next year is common. We set the grades and sprinkler mainline so the next phase ties in cleanly."),
     ])}
   </div>
@@ -1099,7 +1099,7 @@ def page_newbuild(link):
     ("My lot is on a slope. Can you handle that?", f'Yes. Grading, terraces and retaining walls are part of what we do. See <a class="textlink" href="{link(WALLS_SLUG)}">retaining walls</a>.'),
     ("Does a new-build yard qualify for Utah's lawn-replacement rebate?", "Usually not. That rebate pays to replace existing lawn, and the program has to see and approve the lawn before it comes out. A water-wise design from the start saves you the water instead."),
     ("Can you work with my HOA's landscaping rules?", "Yes. Send us the rules with your plans and we'll design the yard to them."),
-    ("When can you start?", "We can start now. There's no need to wait for spring, and estimates are free, so call or text to set up a time to walk the lot."),
+    ("When can you start?", "Right away. Estimates are free, so call or text to set up a time to walk the lot."),
     ("Are estimates free?", "Yes. We'll walk the lot with you and give you a clear price before any work starts."),
 ])}
 </main>
