@@ -1084,10 +1084,9 @@ def page_newbuild(link):
 
 <section class="section" aria-labelledby="time-h">
   <div class="wrap">
-    <div class="section-head"><p class="label">Timing</p><h2 id="time-h">Plan in winter, build in spring</h2></div>
+    <div class="section-head"><p class="label">Timing</p><h2 id="time-h">No need to wait for spring</h2></div>
     {fixes([
-        ("Winter: design and get on the schedule", "We measure the lot, plan the yard and price it, so you're near the top of the list when the ground thaws."),
-        ("Spring: dirt work and sprinklers first", "Grading, walls and the sprinkler system go in first. Sod and plants need water, so they go in once secondary water is back on."),
+        ("We can start now", "Grading, retaining walls, hardscape prep and the sprinkler system can get going now, so your yard is done sooner."),
         ("Phase it if you need to", "Front yard now and backyard next year is common. We set the grades and sprinkler mainline so the next phase ties in cleanly."),
     ])}
   </div>
@@ -1100,7 +1099,7 @@ def page_newbuild(link):
     ("My lot is on a slope. Can you handle that?", f'Yes. Grading, terraces and retaining walls are part of what we do. See <a class="textlink" href="{link(WALLS_SLUG)}">retaining walls</a>.'),
     ("Does a new-build yard qualify for Utah's lawn-replacement rebate?", "Usually not. That rebate pays to replace existing lawn, and the program has to see and approve the lawn before it comes out. A water-wise design from the start saves you the water instead."),
     ("Can you work with my HOA's landscaping rules?", "Yes. Send us the rules with your plans and we'll design the yard to them."),
-    ("When should I book?", "Winter is the best time to plan. Sod and plants need water, so most installs happen in spring once secondary water is back on, and the schedule fills up fast."),
+    ("When can you start?", "We can start now. There's no need to wait for spring, and estimates are free, so call or text to set up a time to walk the lot."),
     ("Are estimates free?", "Yes. We'll walk the lot with you and give you a clear price before any work starts."),
 ])}
 </main>
