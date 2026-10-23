@@ -1062,8 +1062,8 @@ def page_newbuild(link):
     <div class="section-head"><p class="label">Our work</p><h2 id="nwork-h">New yards we've built</h2></div>
     <div class="ba-grid">{ba}</div>
     <div style="margin-top:clamp(28px,4vw,44px)">{gallery([
+        ("fresh-sod-corner-lot", "Freshly laid sod on a corner lot in front of a white home, with skid steer forks in the foreground", "Fresh sod on a corner lot"),
         ("excavator-trenching", "Excavator digging a trench at a new home site", "Trenching at a new build"),
-        ("new-sod-backyard", "Backyard with fresh sod next to a deck", "New sod backyard"),
         ("sprinkler-valve-manifold-install", "Three-valve sprinkler manifold assembled before burial", "New valve manifold"),
     ])}</div>
   </div>
