@@ -14,7 +14,7 @@ ROOT = os.path.dirname(SRC)
 REPO_MODE = os.path.exists(os.path.join(ROOT, "CNAME"))
 SITE = ROOT if REPO_MODE else os.path.join(ROOT, "site")
 PREVIEW = os.path.join(ROOT, "preview")
-DOMAIN = "https://vesselgroundworks.com"
+DOMAIN = "https://vessellandscape.com"
 LASTMOD = "2026-10-26"  # sitemap date; bump when page content changes
 BRAND = "Vessel Landscape"
 OLD_NAMES = ["Utah Sprinkler Guy", "Vessel Groundworks"]  # past names, only in schema so Google connects them
@@ -1184,7 +1184,7 @@ def build():
                '<p class="label">Error 404</p><h1>That page isn\'t here</h1><p class="lede">The link may be old. Head back to the home page, or call or text us.</p>'
                + cta_buttons(second='<a class="btn btn-line" href="/">Home page</a>') + "</div></section></main>" + footer(prod_link))
     with open(os.path.join(SITE, "404.html"), "w") as f:
-        f.write(full_doc(nf, nf_body).replace('<link rel="canonical" href="https://vesselgroundworks.com/">', '<meta name="robots" content="noindex">'))
+        f.write(full_doc(nf, nf_body).replace(f'<link rel="canonical" href="{DOMAIN}/">', '<meta name="robots" content="noindex">'))
     with open(os.path.join(SITE, "robots.txt"), "w") as f:
         f.write(f"User-agent: *\nAllow: /\n\nSitemap: {DOMAIN}/sitemap.xml\n")
     urls = "".join(f"<url><loc>{DOMAIN}{prod_link(p['slug'])}</loc><lastmod>{LASTMOD}</lastmod></url>" for p in PAGES)
