@@ -1,4 +1,4 @@
-"""Build the Vessel Groundworks site.
+"""Build the Vessel Landscape site (formerly Vessel Groundworks).
 
 Outputs:
   site/      production files (full HTML documents, pretty URLs, absolute canonical)
@@ -15,7 +15,9 @@ REPO_MODE = os.path.exists(os.path.join(ROOT, "CNAME"))
 SITE = ROOT if REPO_MODE else os.path.join(ROOT, "site")
 PREVIEW = os.path.join(ROOT, "preview")
 DOMAIN = "https://vesselgroundworks.com"
-LASTMOD = "2026-10-22"  # sitemap date; bump when page content changes
+LASTMOD = "2026-10-26"  # sitemap date; bump when page content changes
+BRAND = "Vessel Landscape"
+OLD_NAMES = ["Utah Sprinkler Guy", "Vessel Groundworks"]  # past names, only in schema so Google connects them
 
 REPAIR_RATE = 95  # sprinkler repair labor, $/hour, plus parts, 1-hour minimum
 PHONE_DISPLAY = "(385) 398-9355"
@@ -29,13 +31,14 @@ TOWNS = ["Springville", "Mapleton", "Spanish Fork", "Salem", "Payson", "Provo", 
 CSS = open(os.path.join(SRC, "styles.css")).read()
 FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
          '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
-         '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500'
-         '&family=Public+Sans:ital,wght@0,400;0,600;0,700;1,400&family=Saira+Condensed:wght@600;700;800&display=swap">')
+         '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600'
+         '&family=Libre+Caslon+Display&display=swap">')
 
 # ---------- icons ----------
 I_PHONE = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>'
 I_TEXT = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 3h16a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 1-2zm3 6v2h10V9zm0 4v2h7v-2z"/></svg>'
-I_CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>'
+I_CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>'
+I_CHEV = '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 4.2l4 4 4-4"/></svg>'
 
 # ---------- images ----------
 _dims = {}
@@ -151,16 +154,16 @@ def rebate_section(compact=False, calc_href=None):
 
 def steps_section():
     steps = [
-        ("Call or text", "Tell us what's going on. A photo or short video of the problem helps us bring the right parts."),
-        ("Free estimate", "We look at the system or the yard and give you a clear price before any work starts."),
-        ("We do the work", "Careful, clean work, from a single sprinkler head to a full yard."),
-        ("Walkthrough", "We run the system or walk the finished yard with you, so you know everything works."),
+        ("Free site walk", "We come out, walk the yard with you and take measurements. No cost and no pressure."),
+        ("Plan &amp; price", "We map out the layout with you, from rock and plants to walls and watering, and give you a clear price before any work starts."),
+        ("Build", "Grading, walls, irrigation, rock, plants and sod. One crew handles the whole yard, start to finish."),
+        ("Final walkthrough", "We walk the finished yard with you and show you how the watering is set up, so you know everything works."),
     ]
-    items = "".join(f'<li class="step"><span class="n">Step {i}</span><h3>{t}</h3><p>{d}</p></li>' for i, (t, d) in enumerate(steps, 1))
+    items = "".join(f'<li class="step"><span class="n">0{i}</span><h3>{t}</h3><p>{d}</p></li>' for i, (t, d) in enumerate(steps, 1))
     return f'''
-<section class="section" aria-labelledby="steps-h">
+<section class="section" id="process" aria-labelledby="steps-h">
   <div class="wrap">
-    <div class="section-head"><p class="label">How it works</p><h2 id="steps-h">From first text to finished job</h2></div>
+    <div class="section-head"><p class="label">Our process</p><h2 id="steps-h">From first walk-through to finished yard</h2></div>
     <ol class="steps" style="padding:0;margin:0">{items}</ol>
   </div>
 </section>'''
@@ -181,7 +184,7 @@ def faq_section(qas):
   <script type="application/ld+json">{json.dumps(ld, separators=(",", ":"))}</script>
 </section>'''
 
-def cta_band(h="Got a sprinkler problem or a yard to redo?", sub="Call or text Sergio for a free estimate. Monday to Saturday, 8am to 6pm."):
+def cta_band(h="Planning a new yard?", sub="Call or text Sergio for a free site walk. Monday to Saturday, 8am to 6pm."):
     return f'''
 <section class="cta-band on-dark" aria-labelledby="cta-h">
   <div class="wrap cta-inner">
@@ -282,13 +285,14 @@ BUSINESS = {
     "@context": "https://schema.org",
     "@type": "HomeAndConstructionBusiness",
     "@id": DOMAIN + "/#business",
-    "name": "Vessel Groundworks",
+    "name": BRAND,
+    "alternateName": OLD_NAMES,
     "url": DOMAIN + "/",
-    "logo": DOMAIN + "/images/vessel-groundworks-logo-transparent.png",
-    "image": DOMAIN + "/images/og-vessel-groundworks.jpg",
+    "logo": DOMAIN + "/images/vessel-landscape-logo.png",
+    "image": DOMAIN + "/images/og-vessel-landscape.jpg",
     "telephone": "+1-385-398-9355",
     "email": EMAIL,
-    "description": "Landscaping, sprinkler repair, xeriscaping and excavation in Springville and across Utah County.",
+    "description": "Landscaping, xeriscapes, retaining walls, full yard installs and sprinkler repair in Springville and across Utah County.",
     "address": {"@type": "PostalAddress", "addressLocality": "Springville", "addressRegion": "UT", "postalCode": "84663", "addressCountry": "US"},
     "areaServed": [{"@type": "City", "name": f"{t}, UT"} for t in TOWNS] + [{"@type": "AdministrativeArea", "name": "Utah County, UT"}],
     "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], "opens": "08:00", "closes": "18:00"}],
@@ -319,43 +323,64 @@ def breadcrumb(name, slug):
         {"@type": "ListItem", "position": 2, "name": name, "item": f"{DOMAIN}/{slug}"}]}
 
 # ---------- page frame ----------
-NAV = [("sprinkler-repair-in-utah-county", "Sprinkler repair"), ("sprinkler-blowout-in-utah-county", "Blowouts"), ("xeriscaping-in-utah-county", "Xeriscaping"), ("excavation-in-utah-county", "Excavation")]
 
 def season_strip(link):
     return (f'<div class="season"><div class="wrap season-row"><p><b>Fall blowouts are open.</b> Springville shuts off pressurized irrigation around October 15. '
             f'Get your lines cleared before the first hard freeze.</p><a class="textlink" href="{link("sprinkler-blowout-in-utah-county")}">Book a blowout</a></div></div>')
 
+def service_groups():
+    """Services menu, landscape work first."""
+    return [
+        ("Landscaping", [("xeriscaping-in-utah-county", "Xeriscaping"), (WALLS_SLUG, "Retaining walls"),
+                         (NEWBUILD_SLUG, "New home landscaping"), (STRIP_SLUG, "Park strips"),
+                         (COST_SLUG, "Xeriscaping cost & rebates")]),
+        ("Sprinklers & site work", [("sprinkler-repair-in-utah-county", "Sprinkler repair"),
+                                    ("sprinkler-blowout-in-utah-county", "Sprinkler blowouts"),
+                                    ("excavation-in-utah-county", "Excavation & grading")]),
+    ]
+
+# Closes the Services dropdown and mobile menu on an outside click or Escape.
+MENU_JS = ("(function(){function shut(t){document.querySelectorAll('details.drop[open],details.menu[open]').forEach(function(d){if(!t||!d.contains(t))d.removeAttribute('open');});}"
+           "document.addEventListener('click',function(e){shut(e.target);});"
+           "document.addEventListener('keydown',function(e){if(e.key==='Escape')shut(null);});})();")
+
 def header(current, link):
-    navlinks = "".join(f'<a href="{link(s)}"{" aria-current=\"page\"" if s == current else ""}>{t}</a>' for s, t in NAV)
-    navlinks += f'<a href="{link("")}#reviews">Reviews</a>'
+    groups = service_groups()
+    svc_slugs = [s for _, items in groups for s, _ in items]
+    cur = lambda s: ' aria-current="page"' if s == current else ""
+    panel = "".join(f'<span class="drop-sub">{escape(g)}</span>'
+                    + "".join(f'<a href="{link(s)}"{cur(s)}>{escape(t)}</a>' for s, t in items) for g, items in groups)
+    extras = "".join(f'<a href="{link("")}#{a}">{t}</a>' for a, t in [("work", "Our work"), ("process", "Process"), ("reviews", "Reviews")])
+    drop_cls = "drop is-current" if current in svc_slugs else "drop"
+    nav = f'<details class="{drop_cls}"><summary>Services{I_CHEV}</summary><div class="drop-panel">{panel}</div></details>{extras}'
+    mobile = panel + f'<span class="drop-sub">{BRAND}</span>' + extras + f'<a href="tel:{PHONE_TEL}">Call {PHONE_DISPLAY}</a>'
     return f'''<a class="skip" href="#main">Skip to content</a>
 <header class="site-head on-dark">
   <div class="wrap head-row">
-    <a class="brand" href="{link("")}" aria-label="Vessel Groundworks home"><img src="images/logo-white-480.png" width="480" height="145" alt="Vessel Groundworks"></a>
-    <nav class="nav" aria-label="Main">{navlinks}</nav>
+    <a class="brand" href="{link("")}" aria-label="{BRAND} home"><img src="images/vessel-landscape-logo-cream.svg" width="216" height="36" alt="{BRAND}"></a>
+    <nav class="nav" aria-label="Main">{nav}</nav>
     <a class="btn btn-orange head-call" href="tel:{PHONE_TEL}">{I_PHONE}{PHONE_DISPLAY}</a>
-    <details class="menu"><summary>Menu</summary><nav class="menu-panel" aria-label="Mobile">{navlinks}<a href="tel:{PHONE_TEL}">Call {PHONE_DISPLAY}</a></nav></details>
+    <details class="menu"><summary>Menu</summary><nav class="menu-panel" aria-label="Mobile">{mobile}</nav></details>
   </div>
 </header>'''
 
 def footer(link):
-    svc = "".join(f'<li><a href="{link(s)}">{t}</a></li>' for s, t in NAV)
-    svc += (f'<li><a href="{link(WALLS_SLUG)}">Retaining walls</a></li><li><a href="{link(NEWBUILD_SLUG)}">New home yards</a></li>'
-            f'<li><a href="{link(COST_SLUG)}">Xeriscaping costs</a></li><li><a href="{link(STRIP_SLUG)}">Park strips</a></li>')
+    svc = "".join(f'<li><a href="{link(s)}">{escape(t)}</a></li>' for _, items in service_groups() for s, t in items)
     towns = "".join(f"<li>{t}</li>" for t in TOWNS)
     return f'''
 <footer class="site-foot">
   <div class="wrap">
     <div class="foot-grid">
-      <div class="foot-brand"><img src="images/logo-white-480.png" width="480" height="145" alt="Vessel Groundworks" loading="lazy"><p>Landscaping, sprinkler repair, xeriscaping and excavation in Springville and across Utah County.</p></div>
+      <div class="foot-brand"><img src="images/vessel-landscape-logo-cream.svg" width="220" height="36" alt="{BRAND}" loading="lazy"><p>Landscaping, xeriscapes, retaining walls and sprinkler repair in Springville and across Utah County.</p></div>
       <div><h4>Contact</h4><ul><li><a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a></li><li><a href="mailto:{EMAIL}">{EMAIL}</a></li><li>Mon–Sat, 8am–6pm</li><li>Se habla español</li><li><a href="{escape(FACEBOOK)}" target="_blank" rel="noopener">Facebook</a></li></ul></div>
       <div><h4>Services</h4><ul>{svc}<li><a href="{GOOGLE_REVIEWS}" target="_blank" rel="noopener">Google reviews</a></li></ul></div>
       <div><h4>Areas</h4><ul>{towns}</ul></div>
     </div>
-    <div class="foot-legal"><span>© 2026 Vessel Groundworks · Springville, Utah</span></div>
+    <div class="foot-legal"><span>© 2026 {BRAND} · Springville, Utah</span></div>
   </div>
 </footer>
-<div class="callbar"><a class="btn btn-orange" href="tel:{PHONE_TEL}">{I_PHONE}Call</a><a class="btn btn-line" style="border-color:var(--on-dark);color:var(--on-dark)" href="sms:{PHONE_TEL}">{I_TEXT}Text</a></div>'''
+<div class="callbar"><a class="btn btn-orange" href="tel:{PHONE_TEL}">{I_PHONE}Call</a><a class="btn btn-line" style="border-color:var(--on-dark-2);color:var(--on-dark)" href="sms:{PHONE_TEL}">{I_TEXT}Text</a></div>
+<script>{MENU_JS}</script>'''
 
 def head_tags(p):
     url = DOMAIN + ("/" if p["slug"] == "" else "/" + p["slug"])
@@ -363,11 +388,11 @@ def head_tags(p):
     return (f'<title>{escape(p["title"])}</title>'
             f'<meta name="description" content="{escape(p["desc"])}">'
             f'<link rel="canonical" href="{url}">'
-            f'<meta property="og:type" content="website"><meta property="og:site_name" content="Vessel Groundworks">'
+            f'<meta property="og:type" content="website"><meta property="og:site_name" content="{BRAND}">'
             f'<meta property="og:title" content="{escape(p["title"])}"><meta property="og:description" content="{escape(p["desc"])}">'
-            f'<meta property="og:url" content="{url}"><meta property="og:image" content="{DOMAIN}/images/og-vessel-groundworks.jpg">'
+            f'<meta property="og:url" content="{url}"><meta property="og:image" content="{DOMAIN}/images/og-vessel-landscape.jpg">'
             f'<meta name="twitter:card" content="summary_large_image">'
-            f'<meta name="theme-color" content="#1f2023">'
+            f'<meta name="theme-color" content="#1f3b2d">'
             f'<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">'
             + ld)
 
@@ -379,15 +404,18 @@ def full_doc(p, body):
 # ---------- pages ----------
 def page_home(link):
     services = [
-        ("sprinkler-repair-in-utah-county", "Sprinkler repair &amp; irrigation", "sprinkler-valve-manifold-install", "New sprinkler valve manifold with three valves before burial",
-         "Broken heads, leaking valves, line breaks, low pressure and dry spots. We find what's wrong, fix it, and make sure every zone covers the way it should.",
-         ["Heads &amp; rotors", "Valves &amp; manifolds", "Line breaks", "Pressure &amp; coverage", "Drip conversion"]),
         ("xeriscaping-in-utah-county", "Xeriscaping &amp; low-water landscaping", "xeriscape-side-yard-sod-rock-border", "Side yard with a small lawn framed by rock and drought-tolerant grasses",
          "Rock, drought-tolerant plants, drip irrigation and as much lawn as you want to keep. Lower water bills and less mowing, and the yard still looks finished.",
          ["Rock &amp; gravel", "Sod &amp; lawn reduction", "Park strips", "Drip irrigation", "Concrete curbing", "Planting"]),
-        ("excavation-in-utah-county", "Excavation, grading &amp; site prep", "excavation-from-excavator-cab", "View from an excavator cab digging a deep residential excavation",
-         "The work under the finished project: grading, trenching, concrete prep and drainage, plus boulder and block retaining walls, done with compact equipment that fits residential yards.",
-         ["Grading", "Trenching", "Concrete prep", "Drainage", "Retaining walls"]),
+        (WALLS_SLUG, "Retaining walls", "boulder-wall-skid-steer", "Tiered boulder retaining walls going in beside a new home",
+         "Boulder and block walls that hold a slope and turn it into usable yard, with the excavation, base and drainage behind them done right.",
+         ["Boulder walls", "Block walls", "Terraces", "Drainage", "Grading"]),
+        (NEWBUILD_SLUG, "New home landscaping", "new-sod-front-lawn", "New sod front lawn and walkway at a newer two-story home",
+         "Full yard installs for new builds: grading, the sprinkler system, sod, rock, planting and walls. One crew from bare dirt to a finished yard.",
+         ["Grading", "Sprinkler systems", "Sod", "Rock &amp; planting", "Retaining walls"]),
+        ("sprinkler-repair-in-utah-county", "Sprinkler repair &amp; irrigation", "sprinkler-valve-manifold-install", "New sprinkler valve manifold with three valves before burial",
+         "Broken heads, leaking valves, line breaks, low pressure and dry spots. We find what's wrong, fix it, and make sure every zone covers the way it should.",
+         ["Heads &amp; rotors", "Valves &amp; manifolds", "Line breaks", "Drip conversion"]),
     ]
     rows = "".join(f'''
       <article class="svc">
@@ -428,7 +456,7 @@ def page_home(link):
     ])
 
     faq = faq_section([
-        ("What services does Vessel Groundworks offer?", f'Sprinkler repair and irrigation, xeriscaping and low-water landscaping, <a class="textlink" href="{link(WALLS_SLUG)}">boulder and block retaining walls</a>, and excavation work like grading, trenching, drainage and concrete prep.'),
+        (f"What services does {BRAND} offer?", f'Xeriscaping and low-water landscaping, <a class="textlink" href="{link(WALLS_SLUG)}">boulder and block retaining walls</a>, <a class="textlink" href="{link(NEWBUILD_SLUG)}">full yard installs for new builds</a>, sprinkler repair and irrigation, and the excavation and grading underneath it all.'),
         ("Do you take small jobs as well as big projects?", f'Yes. We handle everything from a single broken sprinkler head to <a class="textlink" href="{link(NEWBUILD_SLUG)}">full yard installs on new builds</a> and multi-phase excavation projects.'),
         ("What areas do you serve?", "We're based in Springville and work across Utah County, including Mapleton, Spanish Fork, Salem, Payson, Provo and Orem. Larger projects can go anywhere along the Wasatch Front. Outside that? Text us and ask."),
         ("Do you specialize in water-efficient landscaping?", "Yes. Rock work, drought-tolerant planting, drip irrigation, grading and edging are a big part of what we do, and we can explain how Utah's lawn-replacement rebate works."),
@@ -438,13 +466,12 @@ def page_home(link):
 
     return f'''
 <main id="main">
-{season_strip(link)}
 <section class="hero">
   <div class="wrap hero-grid">
     <div class="hero-copy">
       <p class="label">Springville, Utah · Serving Utah County</p>
-      <h1>Landscaping &amp; sprinkler repair <span class="hl">in Utah County</span></h1>
-      <p class="lede">From a broken sprinkler head to a full low-water yard, Vessel Groundworks handles the repair, the dirt work and the finished landscape. Call or text Sergio directly for a free estimate.</p>
+      <h1>Landscaping &amp; xeriscapes <span class="hl">in Utah County</span></h1>
+      <p class="lede">Water-wise yards, boulder and block walls, and full yard installs, built by one crew from bare dirt to the finished landscape, irrigation included. Call or text Sergio for a free site walk.</p>
       {cta_buttons(second=f'<a class="btn btn-line" href="sms:{PHONE_TEL}">{I_TEXT}Text a photo of your yard</a>')}
       {proof()}
     </div>
@@ -460,7 +487,7 @@ def page_home(link):
     <div class="section-head">
       <p class="label">What we do</p>
       <h2 id="svc-h">One company for the whole yard</h2>
-      <p class="lede">Most yard projects need more than one trade. We fix the water, move the dirt and finish the landscape, so you're not coordinating three different contractors.</p>
+      <p class="lede">Most yard projects need more than one trade. We move the dirt, build the walls, run the water and finish the landscape, so you're not coordinating three different contractors.</p>
     </div>
     <div class="svc-list">{rows}</div>
   </div>
@@ -477,8 +504,7 @@ def page_home(link):
     <div style="margin-top:clamp(28px,4vw,44px)">{gal}</div>
   </div>
 </section>
-{rebate_section(calc_href=link(COST_SLUG) + "#rebate-calculator")}
-{reviews_section(["brandon", "mason", "joshua", "kasha", "aaron", "bryce"])}
+{reviews_section(["brandon", "aaron", "joshua", "mason", "kasha", "bryce"])}
 {steps_section()}
 {area_section()}
 {faq}
@@ -1107,41 +1133,41 @@ def page_newbuild(link):
 
 PAGES = [
     {"slug": "", "file": "index", "fn": page_home,
-     "title": "Landscaping & Sprinkler Repair in Springville, UT | Vessel Groundworks",
-     "desc": "Springville landscaping company serving Utah County: sprinkler repair, xeriscaping and excavation. 5.0 on Google, free estimates. Call or text (385) 398-9355.",
+     "title": "Landscaping & Xeriscaping in Springville, UT | Vessel Landscape",
+     "desc": "Springville landscaping company serving Utah County: xeriscapes, retaining walls, full yard installs and sprinkler repair. 5.0 on Google, free estimates. Call or text (385) 398-9355.",
      "schema": [BUSINESS]},
     {"slug": "sprinkler-repair-in-utah-county", "file": "sprinkler-repair-in-utah-county", "fn": page_sprinklers,
-     "title": "Sprinkler Repair in Springville & Utah County | Vessel Groundworks",
+     "title": "Sprinkler Repair in Springville & Utah County | Vessel Landscape",
      "desc": f"Sprinkler repair in Springville, Provo, Orem, Spanish Fork and across Utah County. Free estimates, then ${REPAIR_RATE}/hour plus parts. Broken heads, valves, line breaks.",
      "schema": [dict(service_schema("Sprinkler repair", "sprinkler-repair-in-utah-county", "Sprinkler and irrigation repair in Springville and across Utah County: heads, valves, line breaks, pressure and coverage, drip."),
                      offers={"@type": "Offer", "priceCurrency": "USD", "priceSpecification": {"@type": "UnitPriceSpecification", "price": REPAIR_RATE, "priceCurrency": "USD", "unitCode": "HUR", "description": "Labor per hour, plus parts. 1-hour minimum."}}),
                 breadcrumb("Sprinkler repair", "sprinkler-repair-in-utah-county")]},
     {"slug": "sprinkler-blowout-in-utah-county", "file": "sprinkler-blowout-in-utah-county", "fn": page_blowout,
-     "title": "Sprinkler Blowouts & Winterization in Utah County | Vessel Groundworks",
+     "title": "Sprinkler Blowouts & Winterization in Utah County | Vessel Landscape",
      "desc": "Sprinkler blowouts and winterization in Springville, Spanish Fork, Provo, Orem and across Utah County. Every zone cleared with compressed air before the hard freeze.",
      "schema": [service_schema("Sprinkler blowout and winterization", "sprinkler-blowout-in-utah-county", "Fall sprinkler blowouts and irrigation winterizing across Utah County."), breadcrumb("Sprinkler blowouts", "sprinkler-blowout-in-utah-county")]},
     {"slug": "xeriscaping-in-utah-county", "file": "xeriscaping-in-utah-county", "fn": page_xeriscape,
-     "title": "Xeriscaping in Utah County: Installs & Rebate Help | Vessel Groundworks",
+     "title": "Xeriscaping in Utah County: Installs & Rebate Help | Vessel Landscape",
      "desc": "Springville xeriscaping company serving Utah County. Rock, drought-tolerant plants, drip and park strip conversions, plus help with Utah's lawn-replacement rebate.",
      "schema": [service_schema("Xeriscaping and low-water landscaping", "xeriscaping-in-utah-county", "Xeriscape, park strip conversion and low-water landscape installation across Utah County."), breadcrumb("Xeriscaping", "xeriscaping-in-utah-county")]},
     {"slug": "excavation-in-utah-county", "file": "excavation-in-utah-county", "fn": page_excavation,
-     "title": "Excavation & Grading in Utah County | Vessel Groundworks",
+     "title": "Excavation & Grading in Utah County | Vessel Landscape",
      "desc": "Residential excavation, grading, trenching and concrete prep in Springville and across Utah County. Compact equipment for tight yards. Free estimates.",
      "schema": [service_schema("Excavation, grading and site prep", "excavation-in-utah-county", "Residential excavation, grading, trenching and site prep across Utah County."), breadcrumb("Excavation", "excavation-in-utah-county")]},
     {"slug": COST_SLUG, "file": COST_SLUG, "fn": page_cost,
-     "title": "Xeriscaping Cost in Utah County (2026) + Rebate Calculator | Vessel Groundworks",
+     "title": "Xeriscaping Cost in Utah County (2026) + Rebate Calculator | Vessel Landscape",
      "desc": f"What xeriscaping costs in Utah County: about ${COST_LOW}–${COST_HIGH} per sq ft, plus $1.50–$3.00 per sq ft back from the lawn-replacement rebate. Free rebate calculator and estimates.",
      "schema": [breadcrumb("Xeriscaping cost", COST_SLUG)]},
     {"slug": STRIP_SLUG, "file": STRIP_SLUG, "fn": page_parkstrip,
-     "title": "Park Strip Landscaping in Utah County + Rebate Rules | Vessel Groundworks",
-     "desc": "Turn your park strip into rock, mulch and low-water plants on drip. Utah County rebate rules, plant ideas and installs by Vessel Groundworks in Springville.",
+     "title": "Park Strip Landscaping in Utah County + Rebate Rules | Vessel Landscape",
+     "desc": "Turn your park strip into rock, mulch and low-water plants on drip. Utah County rebate rules, plant ideas and installs by Vessel Landscape in Springville.",
      "schema": [service_schema("Park strip landscaping", STRIP_SLUG, "Park strip conversions to water-wise landscaping with drip irrigation across Utah County."), breadcrumb("Park strips", STRIP_SLUG)]},
     {"slug": WALLS_SLUG, "file": WALLS_SLUG, "fn": page_walls,
-     "title": "Retaining Walls in Springville & Utah County | Vessel Groundworks",
+     "title": "Retaining Walls in Springville & Utah County | Vessel Landscape",
      "desc": "Boulder and block retaining walls in Springville, Mapleton, Spanish Fork and across Utah County. Base, drainage and terraced walls built to last. Free estimates.",
      "schema": [service_schema("Retaining walls", WALLS_SLUG, "Boulder and block retaining walls, terraced walls and the excavation, base and drainage behind them, across Utah County."), breadcrumb("Retaining walls", WALLS_SLUG)]},
     {"slug": NEWBUILD_SLUG, "file": NEWBUILD_SLUG, "fn": page_newbuild,
-     "title": "New Home Landscaping in Utah County: Full Yard Installs | Vessel Groundworks",
+     "title": "New Home Landscaping in Utah County: Full Yard Installs | Vessel Landscape",
      "desc": "Full yard installs for new builds in Utah County: grading, sprinklers, sod, rock, planting and retaining walls. One crew from bare dirt to a finished yard. Free estimates.",
      "schema": [service_schema("New home landscaping", NEWBUILD_SLUG, "Full landscape installs for new construction across Utah County: grading, sprinkler systems, sod, rock, planting and retaining walls."), breadcrumb("New home landscaping", NEWBUILD_SLUG)]},
 ]
@@ -1153,7 +1179,7 @@ def build():
         body = header(p["slug"], prod_link) + p["fn"](prod_link) + footer(prod_link)
         with open(os.path.join(SITE, p["file"] + ".html"), "w") as f:
             f.write(full_doc(p, body))
-    nf = {"slug": "", "title": "Page not found | Vessel Groundworks", "desc": "That page doesn't exist.", "schema": []}
+    nf = {"slug": "", "title": "Page not found | Vessel Landscape", "desc": "That page doesn't exist.", "schema": []}
     nf_body = (header("", prod_link) + '<main id="main"><section class="hero"><div class="wrap" style="display:grid;gap:20px;max-width:760px">'
                '<p class="label">Error 404</p><h1>That page isn\'t here</h1><p class="lede">The link may be old. Head back to the home page, or call or text us.</p>'
                + cta_buttons(second='<a class="btn btn-line" href="/">Home page</a>') + "</div></section></main>" + footer(prod_link))
@@ -1175,7 +1201,7 @@ def build():
     for p in PAGES:
         body = header(p["slug"], prev_link) + p["fn"](prev_link) + footer(prev_link)
         if p["file"] == "index":
-            frag = "<title>Vessel Groundworks</title>" + FONTS + f"<style>{CSS}</style>" + body
+            frag = "<title>Vessel Landscape</title>" + FONTS + f"<style>{CSS}</style>" + body
             with open(os.path.join(PREVIEW, "index.html"), "w") as f:
                 f.write(frag)
         else:
