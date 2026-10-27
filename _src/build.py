@@ -751,6 +751,24 @@ def page_excavation(link):
       <figure>{img("concrete-prep-compaction", "Plate compactor packing gravel base next to a driveway", "(max-width: 640px) 100vw, 33vw")}<figcaption><b>Step 2 · Base &amp; compaction</b>Road base spread and compacted.</figcaption></figure>
       <figure>{img("finished-concrete-driveway-extension", "Finished concrete driveway extension along a fence", "(max-width: 640px) 100vw, 33vw")}<figcaption><b>Step 3 · Finished</b>Concrete on a solid, level base.</figcaption></figure>
     </div>
+    <div class="ba-grid" style="margin-top:clamp(28px,4vw,44px)">
+      <div class="ba">
+        <div class="ba-pair">
+          <figure>{img("pad-prep-backyard-before", "Fenced side yard with patchy lawn and a gravel path before excavation", "(max-width: 760px) 50vw, 25vw")}<span class="tag">Before</span></figure>
+          <figure>{img("pad-prep-backyard-cut-down", "Same yard dug down to dirt along the house, ready for road base and concrete", "(max-width: 760px) 50vw, 25vw")}<span class="tag after">After</span></figure>
+        </div>
+        <h3>Backyard pad prep</h3>
+        <p>Lawn and gravel stripped, the yard cut down to depth and the dirt hauled off, ready for road base and concrete.</p>
+      </div>
+      <div class="ba">
+        <div class="ba-pair">
+          <figure>{img("pool-deck-concrete-before", "Large concrete pool deck in a backyard before removal", "(max-width: 760px) 50vw, 25vw")}<span class="tag">Before</span></figure>
+          <figure>{img("pool-deck-concrete-removed", "Same backyard with the concrete pool deck removed down to dirt", "(max-width: 760px) 50vw, 25vw")}<span class="tag after">After</span></figure>
+        </div>
+        <h3>Pool deck tear-out</h3>
+        <p>Old concrete deck broken out and hauled away to make room for pavers. <a class="textlink" href="{link(CONCRETE_SLUG)}">Concrete removal</a></p>
+      </div>
+    </div>
     <div style="margin-top:clamp(28px,4vw,44px)">{gallery([
         ("excavation-haul-off-drone", "Aerial view of a mini excavator loading a dump truck during a front yard dig-out", "Dig-out & haul-off"),
         ("excavator-trenching", "Excavator digging a trench at a new home site", "Trenching"),
