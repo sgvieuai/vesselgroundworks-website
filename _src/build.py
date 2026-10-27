@@ -15,7 +15,7 @@ REPO_MODE = os.path.exists(os.path.join(ROOT, "CNAME"))
 SITE = ROOT if REPO_MODE else os.path.join(ROOT, "site")
 PREVIEW = os.path.join(ROOT, "preview")
 DOMAIN = "https://vessellandscape.com"
-LASTMOD = "2026-10-26"  # sitemap date; bump when page content changes
+LASTMOD = "2026-10-27"  # sitemap date; bump when page content changes
 BRAND = "Vessel Landscape"
 OLD_NAMES = ["Utah Sprinkler Guy", "Vessel Groundworks"]  # past names, only in schema so Google connects them
 
@@ -24,6 +24,7 @@ PHONE_DISPLAY = "(385) 398-9355"
 PHONE_TEL = "+13853989355"
 EMAIL = "sergio@vesselgroundworks.com"
 GOOGLE_REVIEWS = "https://www.google.com/maps?cid=12567048390870205497"
+REVIEW_COUNT = 21  # Google review count shown on the site; update as reviews come in
 FACEBOOK = "https://www.facebook.com/profile.php?id=61595151076525"
 INSTAGRAM = "https://www.instagram.com/vesselgroundworks"
 TOWNS = ["Springville", "Mapleton", "Spanish Fork", "Salem", "Payson", "Provo", "Orem"]
@@ -82,7 +83,7 @@ def reviews_section(keys, heading="What customers say"):
         <p class="label">Google reviews</p>
         <h2 id="reviews-h">{heading}</h2>
       </div>
-      <div class="score"><b>5.0</b><div><div class="stars" aria-hidden="true">★★★★★</div><a class="textlink" href="{GOOGLE_REVIEWS}" target="_blank" rel="noopener">Read all 20 reviews on Google</a></div></div>
+      <div class="score"><b>5.0</b><div><div class="stars" aria-hidden="true">★★★★★</div><a class="textlink" href="{GOOGLE_REVIEWS}" target="_blank" rel="noopener">Read all {REVIEW_COUNT} reviews on Google</a></div></div>
     </div>
     <div class="quotes">{quotes(keys)}</div>
   </div>
@@ -91,7 +92,7 @@ def reviews_section(keys, heading="What customers say"):
 # ---------- shared blocks ----------
 def proof():
     items = [
-        '<span class="stars" aria-hidden="true">★★★★★</span> 5.0 · 20 Google reviews',
+        f'<span class="stars" aria-hidden="true">★★★★★</span> 5.0 · {REVIEW_COUNT} Google reviews',
         I_CHECK + "Free estimates",
         I_CHECK + "Same-day response",
         I_CHECK + "Hablamos español",
@@ -306,6 +307,10 @@ BUSINESS = {
         {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Excavation, grading and site prep", "url": DOMAIN + "/excavation-in-utah-county"}},
         {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Retaining walls", "url": DOMAIN + "/retaining-walls-utah-county"}},
         {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "New home landscaping", "url": DOMAIN + "/new-home-landscaping-utah-county"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Yard renovation", "url": DOMAIN + "/yard-renovation-utah-county"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Concrete landscape curbing", "url": DOMAIN + "/landscape-curbing-utah-county"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Sprinkler system installation", "url": DOMAIN + "/sprinkler-installation-utah-county"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Concrete removal", "url": DOMAIN + "/concrete-removal-utah-county"}},
     ]},
 }
 
@@ -331,12 +336,15 @@ def season_strip(link):
 def service_groups():
     """Services menu, landscape work first."""
     return [
-        ("Landscaping", [("xeriscaping-in-utah-county", "Xeriscaping"), (WALLS_SLUG, "Retaining walls"),
+        ("Landscaping", [("xeriscaping-in-utah-county", "Xeriscaping"), (RENO_SLUG, "Yard renovations"),
+                         (WALLS_SLUG, "Retaining walls"), (CURB_SLUG, "Landscape curbing"),
                          (NEWBUILD_SLUG, "New home landscaping"), (STRIP_SLUG, "Park strips"),
                          (COST_SLUG, "Xeriscaping cost & rebates")]),
-        ("Sprinklers & site work", [("sprinkler-repair-in-utah-county", "Sprinkler repair"),
+        ("Sprinklers & site work", [(INSTALL_SLUG, "Sprinkler installation"),
+                                    ("sprinkler-repair-in-utah-county", "Sprinkler repair"),
                                     ("sprinkler-blowout-in-utah-county", "Sprinkler blowouts"),
-                                    ("excavation-in-utah-county", "Excavation & grading")]),
+                                    ("excavation-in-utah-county", "Excavation & site prep"),
+                                    (CONCRETE_SLUG, "Concrete removal")]),
     ]
 
 # Closes the Services dropdown and mobile menu on an outside click or Escape.
@@ -348,11 +356,13 @@ def header(current, link):
     groups = service_groups()
     svc_slugs = [s for _, items in groups for s, _ in items]
     cur = lambda s: ' aria-current="page"' if s == current else ""
-    panel = "".join(f'<span class="drop-sub">{escape(g)}</span>'
-                    + "".join(f'<a href="{link(s)}"{cur(s)}>{escape(t)}</a>' for s, t in items) for g, items in groups)
+    group_html = [f'<span class="drop-sub">{escape(g)}</span>'
+                  + "".join(f'<a href="{link(s)}"{cur(s)}>{escape(t)}</a>' for s, t in items) for g, items in groups]
+    panel = "".join(group_html)  # mobile menu: one flat list
+    columns = "".join(f'<div class="drop-col">{h}</div>' for h in group_html)  # desktop dropdown: one column per group
     extras = "".join(f'<a href="{link("")}#{a}">{t}</a>' for a, t in [("work", "Our work"), ("process", "Process"), ("reviews", "Reviews")])
     drop_cls = "drop is-current" if current in svc_slugs else "drop"
-    nav = f'<details class="{drop_cls}"><summary>Services{I_CHEV}</summary><div class="drop-panel">{panel}</div></details>{extras}'
+    nav = f'<details class="{drop_cls}"><summary>Services{I_CHEV}</summary><div class="drop-panel">{columns}</div></details>{extras}'
     mobile = panel + f'<span class="drop-sub">{BRAND}</span>' + extras + f'<a href="tel:{PHONE_TEL}">Call {PHONE_DISPLAY}</a>'
     return f'''<a class="skip" href="#main">Skip to content</a>
 <header class="site-head on-dark">
@@ -439,24 +449,24 @@ def page_home(link):
       </div>
       <div class="ba">
         <div class="ba-pair">
-          <figure>{img("concrete-prep-excavation", "Compact track loader digging out a side yard for a driveway extension", "(max-width: 760px) 50vw, 25vw")}<span class="tag">Before</span></figure>
-          <figure>{img("finished-concrete-driveway-extension", "Finished concrete driveway extension along a fence line", "(max-width: 760px) 50vw, 25vw")}<span class="tag after">After</span></figure>
+          <figure>{img("grading-with-mini-excavator", "Mini excavator grading the bare front yard of a newer two-story home", "(max-width: 760px) 50vw, 25vw")}<span class="tag">Before</span></figure>
+          <figure>{img("new-sod-front-lawn", "Same home with a new sod front lawn and walkway", "(max-width: 760px) 50vw, 25vw")}<span class="tag after">After</span></figure>
         </div>
-        <h3>Driveway extension</h3>
-        <p>Dug out, base compacted, and ready for a clean concrete finish.</p>
+        <h3>New build front yard</h3>
+        <p>Dirt yard graded away from the house, sprinklers in, and finished with new sod.</p>
       </div>'''
 
     gal = gallery([
-        ("concrete-pad-pour-crew", "Crew finishing a new concrete pad with mountains behind", "Concrete pad, Utah County"),
+        ("curbing-sod-rock-corner", "Concrete curbing between new sod and rock beds at a brick home", "Curbing, sod & rock"),
+        ("boulder-wall-backyard-mountains", "Skid steer and excavator building a boulder wall in a backyard below the mountains", "Backyard boulder walls"),
+        ("new-build-sod-mulch-beds", "New sod and mulched planting beds going in beside a new home", "New build: sod & beds"),
+        ("excavation-haul-off-drone", "Aerial view of a mini excavator loading a dump truck during a front yard dig-out", "Dig-out & haul-off"),
         ("drip-irrigation-planting-bed", "Mulched planting bed with drip irrigation along a stone wall", "Drip-irrigated planting bed"),
-        ("boulder-wall-skid-steer", "Skid steer setting boulders for a rock wall", "Boulder wall install"),
-        ("lawn-with-rock-border-xeriscape", "Front lawn with concrete curbing and rock borders", "Lawn with rock borders"),
-        ("sprinkler-valve-box-repair", "Rebuilt sprinkler valve manifold inside a valve box", "Valve box rebuild"),
-        ("excavator-trenching", "Excavator digging a trench at a new home site", "Trenching"),
+        ("sprinkler-install-new-build", "New sprinkler valves and pipe in open trenches at a new build", "Sprinkler install"),
     ])
 
     faq = faq_section([
-        (f"What services does {BRAND} offer?", f'Xeriscaping and low-water landscaping, <a class="textlink" href="{link(WALLS_SLUG)}">boulder and block retaining walls</a>, <a class="textlink" href="{link(NEWBUILD_SLUG)}">full yard installs for new builds</a>, sprinkler repair and irrigation, and the excavation and grading underneath it all.'),
+        (f"What services does {BRAND} offer?", f'Xeriscaping and low-water landscaping, <a class="textlink" href="{link(RENO_SLUG)}">yard renovations</a>, <a class="textlink" href="{link(WALLS_SLUG)}">boulder and block retaining walls</a>, <a class="textlink" href="{link(CURB_SLUG)}">concrete curbing</a>, <a class="textlink" href="{link(NEWBUILD_SLUG)}">full yard installs for new builds</a>, <a class="textlink" href="{link(INSTALL_SLUG)}">sprinkler installation</a> and repair, and the excavation, grading and <a class="textlink" href="{link(CONCRETE_SLUG)}">concrete removal</a> underneath it all.'),
         ("Do you take small jobs as well as big projects?", f'Yes. We handle everything from a single broken sprinkler head to <a class="textlink" href="{link(NEWBUILD_SLUG)}">full yard installs on new builds</a> and multi-phase excavation projects.'),
         ("What areas do you serve?", "We're based in Springville and work across Utah County, including Mapleton, Spanish Fork, Salem, Payson, Provo and Orem. Larger projects can go anywhere along the Wasatch Front. Outside that? Text us and ask."),
         ("Do you specialize in water-efficient landscaping?", "Yes. Rock work, drought-tolerant planting, drip irrigation, grading and edging are a big part of what we do, and we can explain how Utah's lawn-replacement rebate works."),
@@ -561,7 +571,7 @@ def page_sprinklers(link):
         ("Line breaks &amp; leaks", "Dig out and repair broken pipe and fittings, including leaks you can't see from the surface."),
         ("Pressure &amp; coverage", "Track down low pressure and dry spots, then adjust heads and spacing so the whole lawn gets water."),
         ("Drip irrigation", "Install drip for flower beds, trees and shrubs, or convert spray zones over to drip."),
-        ("Upgrades &amp; adjustments", "Add heads, replace worn parts with more efficient ones, and set a watering schedule that fits the season."),
+        ("Upgrades &amp; adjustments", f'Add heads, replace worn parts with more efficient ones, and set a watering schedule that fits the season. Need a whole new system? See <a class="textlink" href="{link(INSTALL_SLUG)}">sprinkler installation</a>.'),
         ("Spring start-ups", "Water back on, every zone run and checked, heads adjusted and the controller set for the season, with any winter damage found before summer."),
         ("Fall blowouts", f'Every zone cleared with compressed air before the hard freezes. <a class="textlink" href="{link("sprinkler-blowout-in-utah-county")}">About blowouts</a>'),
     ])}
@@ -632,7 +642,7 @@ def page_xeriscape(link):
         ("Decorative rock &amp; gravel", "Rock and gravel beds, borders and ground cover that hold up to Utah summers and winters."),
         ("Sod &amp; lawn reduction", "Keep a smaller, easier lawn where you actually use it, and replace the rest with water-wise landscaping."),
         ("Drip irrigation", "Drip lines to plants, trees and beds, so water goes to roots instead of rock."),
-        ("Concrete curbing &amp; edging", "Clean edges between lawn, rock and beds that keep materials where they belong."),
+        ("Concrete curbing &amp; edging", f'Clean edges between lawn, rock and beds that keep materials where they belong. <a class="textlink" href="{link(CURB_SLUG)}">Landscape curbing</a>'),
         ("Planting &amp; layout", "Drought-tolerant plants placed so the yard looks planned, not empty."),
     ])}
   </div>
@@ -690,7 +700,7 @@ def page_xeriscape(link):
     <div style="margin-top:clamp(28px,4vw,44px)">{gallery([
         ("drip-irrigation-planting-bed", "Mulched planting bed with drip irrigation along a stone wall", "Drip-irrigated bed"),
         ("sod-and-rock-front-yard-utah-county", "Front yard with new sod, rock borders and grasses", "Sod and rock front yard"),
-        ("new-sod-backyard", "Backyard with fresh sod next to a deck", "Fresh sod backyard"),
+        ("curbing-sod-rock-corner", "Concrete curbing between new sod and rock beds at a brick home", "Curbing between sod and rock"),
     ])}</div>
   </div>
 </section>
@@ -715,20 +725,20 @@ def page_xeriscape(link):
 def page_excavation(link):
     return f'''
 <main id="main">
-{service_hero("Excavation", "Excavation &amp; site prep", 'Excavation &amp; grading <span class="hl">in Utah County</span>',
-   "The work under the finished project: digging, grading, trenching, and prep for concrete, drainage and retaining walls. We work with compact equipment built for residential yards.",
+{service_hero("Excavation &amp; site prep", "Excavation &amp; site prep", 'Excavation, grading &amp; site prep <span class="hl">in Utah County</span>',
+   "The work under the finished project: digging, grading, trenching, haul-off, and site prep for new yards, concrete, drainage and retaining walls. We work with compact equipment built for residential yards.",
    "excavation-from-excavator-cab", "View from an excavator cab digging a deep residential excavation", "Excavation from the cab", link)}
 
 <section class="section section-alt" aria-labelledby="efix-h">
   <div class="wrap">
     <div class="section-head"><p class="label">What we do</p><h2 id="efix-h">Excavation &amp; site prep services</h2></div>
     {fixes([
-        ("Grading &amp; leveling", "Set the grade for lawns, patios and landscapes so water drains away from the house."),
+        ("Site prep for new yards", f'Old sod, soil and debris out, the ground cut down to the right depth, and the base ready for sod, rock or a <a class="textlink" href="{link(RENO_SLUG)}">full yard renovation</a>.'),
+        ("Grading &amp; drainage", "Set the grade for lawns, patios and landscapes so water drains away from the house and goes where it should."),
         ("Trenching", "Trenches for irrigation, drainage, utilities and landscape lines."),
         ("Concrete prep", "Dig-out, forms and compacted base for patios, walkways, pads, curbing and driveway extensions."),
-        ("Drainage prep", "Grading and trenching to move water where it should go."),
         ("Retaining walls", f'Boulder and block walls, from the dig-out, base and drainage to the finished wall. <a class="textlink" href="{link(WALLS_SLUG)}">About retaining walls</a>'),
-        ("Demo &amp; removal", "Remove old concrete, soil, grass and rock to clear the way for the new project."),
+        ("Demo &amp; haul-off", f'Remove old concrete, soil, grass and rock, load it and haul it away. <a class="textlink" href="{link(CONCRETE_SLUG)}">Concrete removal</a>'),
     ])}
   </div>
 </section>
@@ -742,7 +752,7 @@ def page_excavation(link):
       <figure>{img("finished-concrete-driveway-extension", "Finished concrete driveway extension along a fence", "(max-width: 640px) 100vw, 33vw")}<figcaption><b>Step 3 · Finished</b>Concrete on a solid, level base.</figcaption></figure>
     </div>
     <div style="margin-top:clamp(28px,4vw,44px)">{gallery([
-        ("concrete-pad-pour-crew", "Crew finishing a new concrete pad with mountains behind", "Concrete pad"),
+        ("excavation-haul-off-drone", "Aerial view of a mini excavator loading a dump truck during a front yard dig-out", "Dig-out & haul-off"),
         ("excavator-trenching", "Excavator digging a trench at a new home site", "Trenching"),
         ("excavation-next-to-house", "Deep excavation beside a house with a skid steer nearby", "Excavation beside a home"),
         ("boulder-wall-skid-steer", "Skid steer setting boulders for a rock wall", "Boulder wall"),
@@ -1021,13 +1031,24 @@ def page_walls(link):
 
 <section class="section section-alt" aria-labelledby="grade-h">
   <div class="wrap split">
-    {img("excavation-next-to-house", "Deep excavation beside a house with a skid steer in the driveway", "(max-width: 860px) 100vw, 50vw")}
+    {img("boulder-wall-backyard-mountains", "Skid steer and excavator building a boulder wall in a backyard below the mountains", "(max-width: 860px) 100vw, 50vw")}
     <div class="split-copy">
       <p class="label">Big grade changes</p>
       <h2 id="grade-h">From garden walls to steep lots</h2>
       <p>We build everything from a low wall around a planting bed to tall walls that turn a steep lot into usable yard. On a big grade change, two or three terraced walls often look better and give you more level space than one tall wall, and we'll show you both options.</p>
       <p>We do the excavation ourselves, so the dig-out, base, drainage and wall are all one job with one crew and one price.</p>
     </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="wwork-h">
+  <div class="wrap">
+    <div class="section-head"><p class="label">Our work</p><h2 id="wwork-h">Walls and the dirt work behind them</h2></div>
+    {gallery([
+        ("boulder-border-yard-renovation", "Row of boulders set along a trench in a backyard, with equipment behind", "Boulder border going in"),
+        ("excavation-next-to-house", "Deep excavation beside a house with a skid steer in the driveway", "Dig-out beside a home"),
+        ("xeriscape-rock-yard-before", "Front yard stripped to bare dirt and graded around a mature tree", "Yard graded around a mature tree"),
+    ])}
   </div>
 </section>
 {reviews_section(["aaron", "brandon", "joshua"], "Walls that hold up")}
@@ -1075,7 +1096,7 @@ def page_newbuild(link):
     {fixes([
         ("1 · Grade &amp; drainage", "Final grade set so water runs away from the foundation, and the low spots the builder left behind fixed."),
         ("2 · Walls &amp; hardscape prep", f'Retaining walls for sloped lots, plus the dig-out and base for pads, walkways and curbing. <a class="textlink" href="{link(WALLS_SLUG)}">Retaining walls</a>'),
-        ("3 · Sprinkler system", "Zones laid out for even coverage, valves and manifold, drip for beds and trees, and a smart controller."),
+        ("3 · Sprinkler system", f'Zones laid out for even coverage, valves and manifold, drip for beds and trees, and a smart controller. <a class="textlink" href="{link(INSTALL_SLUG)}">Sprinkler installation</a>'),
         ("4 · Sod &amp; lawn", "Lawn where you'll actually use it, on ground that's prepped and leveled first."),
         ("5 · Rock, beds &amp; planting", "Decorative rock, curbing and edging, and drought-tolerant plants on drip."),
         ("6 · Walkthrough", "We run every zone with you and show you how to set the controller for the season."),
@@ -1088,6 +1109,9 @@ def page_newbuild(link):
     <div class="section-head"><p class="label">Our work</p><h2 id="nwork-h">New yards we've built</h2></div>
     <div class="ba-grid">{ba}</div>
     <div style="margin-top:clamp(28px,4vw,44px)">{gallery([
+        ("new-build-sod-mulch-beds", "New sod and mulched planting beds going in beside a new home", "Sod and planting beds"),
+        ("sod-install-new-build", "Crew laying sod along the walkway of a new build, with pallets of sod and a skid steer", "Sod going in"),
+        ("sprinkler-install-new-build", "New sprinkler valves and pipe in open trenches at a new build", "Sprinkler system going in"),
         ("fresh-sod-corner-lot", "Freshly laid sod on a corner lot in front of a white home, with skid steer forks in the foreground", "Fresh sod on a corner lot"),
         ("excavator-trenching", "Excavator digging a trench at a new home site", "Trenching at a new build"),
         ("sprinkler-valve-manifold-install", "Three-valve sprinkler manifold assembled before burial", "New valve manifold"),
@@ -1120,7 +1144,7 @@ def page_newbuild(link):
 {reviews_section(["brandon", "aaron", "joshua"], "One crew for the whole yard")}
 {area_section()}
 {faq_section([
-    ("Do you install the sprinkler system too?", "Yes. We lay out the zones, install the valves, heads and drip, and set up a smart controller. And since we repair sprinklers too, you have someone to call later."),
+    ("Do you install the sprinkler system too?", f'Yes. We lay out the zones, install the valves, heads and drip, and set up a smart controller. And since we repair sprinklers too, you have someone to call later. See <a class="textlink" href="{link(INSTALL_SLUG)}">sprinkler installation</a>.'),
     ("Can you do the front yard now and the back later?", "Yes. Many new-build owners do the front first. We set the grades and sprinkler mainline so the backyard ties in cleanly when you're ready."),
     ("My lot is on a slope. Can you handle that?", f'Yes. Grading, terraces and retaining walls are part of what we do. See <a class="textlink" href="{link(WALLS_SLUG)}">retaining walls</a>.'),
     ("Does a new-build yard qualify for Utah's lawn-replacement rebate?", "Usually not. That rebate pays to replace existing lawn, and the program has to see and approve the lawn before it comes out. A water-wise design from the start saves you the water instead."),
@@ -1130,6 +1154,240 @@ def page_newbuild(link):
 ])}
 </main>
 {cta_band("Moving into a new build?", "Call or text Sergio to walk the lot and get a free estimate. Monday to Saturday, 8am to 6pm.")}'''
+
+RENO_SLUG = "yard-renovation-utah-county"
+CURB_SLUG = "landscape-curbing-utah-county"
+INSTALL_SLUG = "sprinkler-installation-utah-county"
+CONCRETE_SLUG = "concrete-removal-utah-county"
+
+def page_reno(link):
+    return f'''
+<main id="main">
+{service_hero("Yard renovations", "Backyard &amp; front yard remodels", 'Backyard &amp; yard renovations <span class="hl">in Utah County</span>',
+   "Got an older yard that isn't working anymore? We take out what you don't want, like tired lawn, overgrown beds, old rock and cracked concrete, and rebuild it: new grade, sprinklers, sod, curbing, rock, walls and plants. One crew from tear-out to the finished yard.",
+   "curbing-lawn-shade-tree", "Renovated side yard with new sod, concrete curbing and rock under a shade tree", "Yard redo with sod, curbing &amp; rock · Utah County", link)}
+
+<section class="section section-alt" aria-labelledby="rfix-h">
+  <div class="wrap">
+    <div class="section-head"><p class="label">What's included</p><h2 id="rfix-h">What a yard renovation can include</h2></div>
+    {fixes([
+        ("Tear-out &amp; haul-off", f'Old sod, overgrown shrubs, worn-out rock and <a class="textlink" href="{link(CONCRETE_SLUG)}">old concrete</a> removed and hauled away.'),
+        ("Regrade &amp; drainage", "The yard reshaped so water runs away from the house and low spots stop holding puddles."),
+        ("Sprinkler updates", f'We fix what\'s worth keeping, reroute lines for the new layout, and add drip to beds. <a class="textlink" href="{link(INSTALL_SLUG)}">Sprinkler installation</a>'),
+        ("Sod or a smaller lawn", f'Fresh sod where you use the yard, and water-wise landscaping where you don\'t. <a class="textlink" href="{link("xeriscaping-in-utah-county")}">Xeriscaping</a>'),
+        ("Curbing, rock &amp; planting", f'Concrete curbing for clean edges, decorative rock, and plants that handle Utah summers. <a class="textlink" href="{link(CURB_SLUG)}">Landscape curbing</a>'),
+        ("Walls &amp; terraces", f'Boulder or block walls that level out a slope and give you more usable yard. <a class="textlink" href="{link(WALLS_SLUG)}">Retaining walls</a>'),
+    ])}
+  </div>
+</section>
+
+<section class="section" aria-labelledby="rseq-h">
+  <div class="wrap">
+    <div class="section-head"><p class="label">One yard, start to finish</p><h2 id="rseq-h">A front and side yard redo</h2><p class="lede">Old yard out, curbing and beds in, then sod and rock. One crew the whole way.</p></div>
+    <div class="seq">
+      <figure>{img("curbing-weed-fabric-in-progress", "Front yard dug out with new concrete curbing, weed fabric and young grasses, and a mini excavator behind", "(max-width: 640px) 100vw, 33vw")}<figcaption><b>Step 1 · Curbing &amp; beds</b>Old yard dug out, curbing poured, weed fabric down and plants set.</figcaption></figure>
+      <figure>{img("curbing-yard-graded-for-sod", "Front yard graded and ready for sod inside new curbing, with rock beds along the house", "(max-width: 640px) 100vw, 33vw")}<figcaption><b>Step 2 · Ready for sod</b>Lawn area leveled inside the curbing, rock beds filled.</figcaption></figure>
+      <figure>{img("curbing-sod-rock-corner", "Finished yard with new sod, concrete curbing and rock beds", "(max-width: 640px) 100vw, 33vw")}<figcaption><b>Step 3 · Finished</b>Sod down, rock in, clean edges all the way around.</figcaption></figure>
+    </div>
+    <div style="margin-top:clamp(28px,4vw,44px)">{gallery([
+        ("boulder-border-yard-renovation", "Row of boulders set along a trench in a backyard, with equipment behind", "Boulder border going in"),
+        ("boulder-wall-backyard-mountains", "Skid steer and excavator building a boulder wall in a backyard below the mountains", "Backyard boulder walls"),
+        ("xeriscape-rock-yard-after", "Front yard finished with rock landscaping around a mature tree", "Lawn to rock around a shade tree"),
+    ])}</div>
+  </div>
+</section>
+
+<section class="section section-alt" aria-labelledby="rphase-h">
+  <div class="wrap">
+    <div class="section-head"><p class="label">Your timeline</p><h2 id="rphase-h">All at once, or one part at a time</h2></div>
+    {fixes([
+        ("All at once", "One plan, one crew and one price. The fastest way to a finished yard."),
+        ("In phases", "Front yard this year and backyard next is common. We set the grade and sprinkler lines so the next phase ties in cleanly."),
+    ])}
+  </div>
+</section>
+{reviews_section(["brandon", "aaron", "joshua"], "Yards we've redone")}
+{area_section()}
+{faq_section([
+    ("How much does a yard renovation cost?", "It depends on the size of the yard, what has to come out, what goes in, and how easy it is to get equipment in. Estimates are free, and you get a clear price before any work starts."),
+    ("Can you keep my trees and the parts of the yard I like?", "Yes. We work around mature trees, patios and anything else worth keeping, and only replace what isn't working."),
+    ("Do you haul away the old sod, rock and concrete?", "Yes. Tear-out and haul-off are part of the job."),
+    ("Will my old sprinklers work with the new layout?", "Often part of the system can stay. We fix what's worth keeping, reroute lines to the new layout, and add drip to beds. Since we repair sprinklers every day, we can tell you what's worth saving."),
+    ("Can a renovation qualify for Utah's lawn-replacement rebate?", f'It can if you\'re replacing existing lawn with water-wise landscaping. The program has to approve the project before any grass comes out. See <a class="textlink" href="{link("xeriscaping-in-utah-county")}">xeriscaping</a> for how it works.'),
+    ("Can you get equipment into my backyard?", "We use compact equipment like mini excavators and skid steers. Send a photo of your gate or side yard and we'll tell you what fits."),
+])}
+</main>
+{cta_band("Ready to redo your yard?", "Text Sergio a few photos of the yard for a free estimate. Monday to Saturday, 8am to 6pm.")}'''
+
+def page_curbing(link):
+    return f'''
+<main id="main">
+{service_hero("Landscape curbing", "Concrete curbing", 'Concrete landscape curbing <span class="hl">in Utah County</span>',
+   "Concrete curbing gives lawns, rock beds and planters a clean, permanent edge. It keeps rock out of the grass, gives the mower a line to follow, and makes the whole yard look finished.",
+   "curbing-sod-rock-corner", "Concrete curbing between new sod and rock beds at a brick home", "Curbing between sod &amp; rock · Utah County", link)}
+
+<section class="section section-alt" aria-labelledby="cwhy-h">
+  <div class="wrap">
+    <div class="section-head"><p class="label">Why curbing</p><h2 id="cwhy-h">A clean edge that stays put</h2></div>
+    {fixes([
+        ("Rock stays in the beds", "A solid edge keeps rock and mulch where they belong and out of the lawn."),
+        ("A clean mowing line", "Run the mower wheel along the curb and the edge stays sharp all season."),
+        ("Holds its shape", "Concrete doesn't pull up, warp or rot the way plastic and wood edging do."),
+        ("Curves and corners", "It's poured in place, so it follows whatever lines your yard needs, from straight runs to sweeping curves."),
+    ])}
+  </div>
+</section>
+
+<section class="section" aria-labelledby="cseq-h">
+  <div class="wrap">
+    <div class="section-head"><p class="label">From layout to finished edge</p><h2 id="cseq-h">How a curbing job comes together</h2></div>
+    <div class="seq">
+      <figure>{img("curbing-weed-fabric-in-progress", "New concrete curbing along a front yard, with weed fabric and young grasses in the beds", "(max-width: 640px) 100vw, 33vw")}<figcaption><b>Step 1 · Curbing in</b>Curbing set along the new lawn and bed lines.</figcaption></figure>
+      <figure>{img("curbing-yard-graded-for-sod", "Front yard graded for sod inside new concrete curbing", "(max-width: 640px) 100vw, 33vw")}<figcaption><b>Step 2 · Ready for sod</b>Lawn area graded to the curb, rock beds filled.</figcaption></figure>
+      <figure>{img("curbing-lawn-shade-tree", "New sod and rock meeting at concrete curbing under a shade tree", "(max-width: 640px) 100vw, 33vw")}<figcaption><b>Step 3 · Finished</b>Sod and rock meet at a clean edge.</figcaption></figure>
+    </div>
+    <div style="margin-top:clamp(28px,4vw,44px)">
+      {fixes([
+          ("Lay out the lines", "We mark the curb lines with you on site, so the lawn and beds end up the shape you want."),
+          ("Prep the ground", "A level, compacted path for the curb to sit on, so it stays straight and doesn't settle."),
+          ("Pour &amp; shape", "Concrete poured and shaped along the marked line."),
+          ("Finish the yard", "Once it sets, sod, rock or mulch goes in on each side. We can do all of it."),
+      ])}
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" aria-labelledby="cwork-h">
+  <div class="wrap">
+    <div class="section-head"><p class="label">Our work</p><h2 id="cwork-h">Curbing we've installed</h2></div>
+    {gallery([
+        ("lawn-with-rock-border-xeriscape", "Front lawn with concrete curbing, rock borders and ornamental grasses", "Curbing with rock borders"),
+        ("sod-and-rock-front-yard-utah-county", "Corner-lot front yard with new sod, curbing and rock below the mountains", "Corner lot with curbing"),
+        ("xeriscape-side-yard-sod-rock-border", "Side yard with a small lawn framed by curbing, rock and grasses", "Side yard lawn and rock"),
+    ])}
+  </div>
+</section>
+{reviews_section(["brandon", "aaron", "joshua"], "Clean work, start to finish")}
+{area_section()}
+{faq_section([
+    ("How much does landscape curbing cost?", "Curbing is usually priced by the foot. The total depends on how many feet you need, how many curves and corners there are, and how much prep the ground needs. Estimates are free."),
+    ("Can you add curbing to my existing yard?", "Yes. We cut a clean line along your current lawn and beds, put in the curb, and patch the sod and rock up to it."),
+    ("Do you do the sod and rock too?", f'Yes. Curbing is usually part of a bigger job with sod, rock, plants and sprinklers. See <a class="textlink" href="{link(RENO_SLUG)}">yard renovations</a>.'),
+    ("Will my sprinklers spray the curb?", "We adjust or move heads along the new edge so the water lands on the lawn, not the concrete."),
+    ("Is curbing good for a xeriscape?", f'Yes. It\'s one of the best ways to keep a low-water yard looking neat, with rock on one side and lawn or mulch on the other. See <a class="textlink" href="{link("xeriscaping-in-utah-county")}">xeriscaping</a>.'),
+])}
+</main>
+{cta_band("Want clean edges around your yard?", "Text Sergio a photo of the yard for a free estimate. Monday to Saturday, 8am to 6pm.")}'''
+
+def page_install(link):
+    return f'''
+<main id="main">
+{service_hero("Sprinkler installation", "New sprinkler systems", 'Sprinkler system installation <span class="hl">in Utah County</span>',
+   "New sprinkler systems for new builds, yard renovations and yards that never had one. We lay out the zones for even coverage, install the valves, heads and drip, and set up a smart controller. And since we repair sprinklers every day, we build them to be easy to work on later.",
+   "sprinkler-install-new-build", "New sprinkler valves and pipe in open trenches at a new build, with a skid steer behind", "New system going in · Utah County", link)}
+
+<section class="section section-alt" aria-labelledby="ifix-h">
+  <div class="wrap">
+    <div class="section-head"><p class="label">What's included</p><h2 id="ifix-h">What goes into a new system</h2></div>
+    {fixes([
+        ("Zone layout", "Lawn, beds and trees on separate zones, with heads spaced so every part of the lawn gets water."),
+        ("Valves &amp; manifold", "Valves grouped in boxes you can get to, so future repairs are quick."),
+        ("Heads &amp; rotors", "Sprays for small areas and rotors for big lawns, matched so each zone waters evenly."),
+        ("Drip for beds &amp; trees", "Water goes to the roots of your plants instead of onto rock and mulch."),
+        ("Smart controller", "Waters based on the weather, so you're not running sprinklers in the rain."),
+        ("Ready for secondary water", "A filter where it's needed, since unfiltered secondary water carries sand that clogs nozzles and valves."),
+    ])}
+  </div>
+</section>
+
+<section class="section" aria-labelledby="iorder-h">
+  <div class="wrap split">
+    {img("sprinkler-valve-manifold-install", "Three-valve sprinkler manifold assembled before burial", "(max-width: 860px) 100vw, 50vw")}
+    <div class="split-copy">
+      <p class="label">Done in the right order</p>
+      <h2 id="iorder-h">Sprinklers go in before the sod</h2>
+      <p>On a new yard, the grade gets set first, then the sprinkler system, then sod, rock and plants on top. That way nothing gets torn up later to fix a line.</p>
+      <p>We do the grading and the landscaping too, so the whole job stays in order with one crew. <a class="textlink" href="{link(NEWBUILD_SLUG)}">New home landscaping</a> · <a class="textlink" href="{link(RENO_SLUG)}">Yard renovations</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" aria-labelledby="iwork-h">
+  <div class="wrap">
+    <div class="section-head"><p class="label">Our work</p><h2 id="iwork-h">Systems we've installed</h2></div>
+    {gallery([
+        ("sod-install-new-build", "Crew laying sod along the walkway of a new build over a new sprinkler system", "Sod going in over a new system"),
+        ("healthy-lawn-backyard", "Thick green backyard lawn with even sprinkler coverage", "Even coverage"),
+        ("drip-irrigation-planting-bed", "Mulched planting bed with drip irrigation along a stone wall", "Drip-watered bed"),
+    ])}
+  </div>
+</section>
+{rebate_section(compact=True)}
+{reviews_section(["joshua", "brandon", "mason"], "Sprinklers done right")}
+{area_section()}
+{faq_section([
+    ("How much does a new sprinkler system cost?", "It depends on the size of the yard, how many zones it needs, and how much is lawn versus beds on drip. Estimates are free, and you get a clear price before any work starts."),
+    ("Can you add zones to my existing system?", f'Yes. We can add zones, extend lines to a new area, or convert spray zones to drip. For problems with a system you already have, see <a class="textlink" href="{link("sprinkler-repair-in-utah-county")}">sprinkler repair</a>.'),
+    ("Should sprinklers go in before or after sod?", "Before. The grade gets set first, then the sprinkler system, then sod and rock on top."),
+    ("Do you install drip irrigation?", "Yes. Drip for flower beds, shrubs and trees is part of most systems we install."),
+    ("Will it work with secondary water?", "Yes. Most Utah County yards water with secondary water. We add a filter where it's needed so sand doesn't clog nozzles and valves."),
+    ("Is there a rebate for a smart controller?", "Central Utah Water's program pays up to $100 per smart controller. Rules can change, so check Utah Water Savers before you buy."),
+])}
+</main>
+{cta_band("Need a new sprinkler system?", "Call or text Sergio for a free estimate. Monday to Saturday, 8am to 6pm.")}'''
+
+def page_concrete(link):
+    return f'''
+<main id="main">
+{service_hero("Concrete removal", "Tear-out &amp; haul-off", 'Concrete removal <span class="hl">in Utah County</span>',
+   "Old patios, cracked walkways, slabs and driveway sections broken out, loaded and hauled away. It's usually the first step of a new yard, so we can grade the space and build the landscape right after.",
+   "crew-removing-concrete", "Crew breaking out and removing old concrete in a front yard", "Concrete tear-out · Utah County", link)}
+
+<section class="section section-alt" aria-labelledby="kfix-h">
+  <div class="wrap">
+    <div class="section-head"><p class="label">What we remove</p><h2 id="kfix-h">Concrete we take out</h2></div>
+    {fixes([
+        ("Patios &amp; slabs", "Old patios, pads and slabs that are cracked, sunken or just in the way."),
+        ("Walkways &amp; steps", "Broken sidewalks and paths around the house and yard."),
+        ("Driveway sections", "Part of a driveway or an old parking pad, with the good concrete left in place."),
+        ("Old curbing &amp; edging", "Worn-out curbing, edging and borders, so a new layout can go in."),
+    ])}
+  </div>
+</section>
+
+<section class="section" aria-labelledby="khaul-h">
+  <div class="wrap split">
+    {img("excavation-haul-off-drone", "Aerial view of a mini excavator loading a dump truck during a front yard dig-out", "(max-width: 860px) 100vw, 50vw")}
+    <div class="split-copy">
+      <p class="label">Load &amp; haul</p>
+      <h2 id="khaul-h">Broken out, loaded and gone</h2>
+      <p>We bring the equipment to break it up and load it, and haul it off as part of the job. Then we grade the area so it's ready for what comes next.</p>
+      <p>Before any digging, buried lines are marked through Blue Stakes of Utah.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" aria-labelledby="knext-h">
+  <div class="wrap">
+    <div class="section-head"><p class="label">What's next</p><h2 id="knext-h">What goes where the concrete was</h2></div>
+    {fixes([
+        ("Lawn or xeriscape", f'Sod, rock and low-water plants where the slab used to be. <a class="textlink" href="{link("xeriscaping-in-utah-county")}">Xeriscaping</a>'),
+        ("A full yard redo", f'Tear-out is often the start of a bigger change. <a class="textlink" href="{link(RENO_SLUG)}">Yard renovations</a>'),
+        ("Prep for new concrete", f'Want new concrete instead? We do the dig-out, grading and compacted base for your concrete contractor. <a class="textlink" href="{link("excavation-in-utah-county")}">Excavation &amp; site prep</a>'),
+    ])}
+  </div>
+</section>
+{reviews_section(["aaron", "brandon", "joshua"], "Solid work, done right")}
+{area_section()}
+{faq_section([
+    ("How much does concrete removal cost?", "It depends on how much concrete there is, how thick it is, whether it has rebar in it, and how easy it is to get equipment to it. Estimates are free."),
+    ("Do you haul the concrete away?", "Yes. Breaking it out, loading it and hauling it off are all part of the job."),
+    ("Can you remove just part of a patio or driveway?", "Yes. We take out the section you want gone and leave the rest."),
+    ("Can you get equipment into my backyard?", "We use compact equipment like skid steers and mini excavators. Send a photo of your gate or side yard and we'll tell you what fits."),
+    ("What can go where the concrete was?", f'Lawn, rock, planting beds or a whole new layout. See <a class="textlink" href="{link(RENO_SLUG)}">yard renovations</a>.'),
+])}
+</main>
+{cta_band("Got old concrete to get rid of?", "Text Sergio a photo for a free estimate. Monday to Saturday, 8am to 6pm.")}'''
 
 PAGES = [
     {"slug": "", "file": "index", "fn": page_home,
@@ -1151,9 +1409,9 @@ PAGES = [
      "desc": "Springville xeriscaping company serving Utah County. Rock, drought-tolerant plants, drip and park strip conversions, plus help with Utah's lawn-replacement rebate.",
      "schema": [service_schema("Xeriscaping and low-water landscaping", "xeriscaping-in-utah-county", "Xeriscape, park strip conversion and low-water landscape installation across Utah County."), breadcrumb("Xeriscaping", "xeriscaping-in-utah-county")]},
     {"slug": "excavation-in-utah-county", "file": "excavation-in-utah-county", "fn": page_excavation,
-     "title": "Excavation & Grading in Utah County | Vessel Landscape",
-     "desc": "Residential excavation, grading, trenching and concrete prep in Springville and across Utah County. Compact equipment for tight yards. Free estimates.",
-     "schema": [service_schema("Excavation, grading and site prep", "excavation-in-utah-county", "Residential excavation, grading, trenching and site prep across Utah County."), breadcrumb("Excavation", "excavation-in-utah-county")]},
+     "title": "Excavation, Grading & Site Prep in Utah County | Vessel Landscape",
+     "desc": "Residential excavation, grading, site prep, trenching and haul-off in Springville and across Utah County. Compact equipment for tight yards. Free estimates.",
+     "schema": [service_schema("Excavation, grading and site prep", "excavation-in-utah-county", "Residential excavation, grading, trenching, haul-off and site prep across Utah County."), breadcrumb("Excavation & site prep", "excavation-in-utah-county")]},
     {"slug": COST_SLUG, "file": COST_SLUG, "fn": page_cost,
      "title": "Xeriscaping Cost in Utah County (2026) + Rebate Calculator | Vessel Landscape",
      "desc": f"What xeriscaping costs in Utah County: about ${COST_LOW}–${COST_HIGH} per sq ft, plus $1.50–$3.00 per sq ft back from the lawn-replacement rebate. Free rebate calculator and estimates.",
@@ -1170,6 +1428,22 @@ PAGES = [
      "title": "New Home Landscaping in Utah County: Full Yard Installs | Vessel Landscape",
      "desc": "Full yard installs for new builds in Utah County: grading, sprinklers, sod, rock, planting and retaining walls. One crew from bare dirt to a finished yard. Free estimates.",
      "schema": [service_schema("New home landscaping", NEWBUILD_SLUG, "Full landscape installs for new construction across Utah County: grading, sprinkler systems, sod, rock, planting and retaining walls."), breadcrumb("New home landscaping", NEWBUILD_SLUG)]},
+    {"slug": RENO_SLUG, "file": RENO_SLUG, "fn": page_reno,
+     "title": "Backyard & Yard Renovations in Utah County | Vessel Landscape",
+     "desc": "Backyard and front yard renovations in Springville and across Utah County. Old lawn, rock and concrete out; new grade, sprinklers, sod, curbing, rock and walls in. Free estimates.",
+     "schema": [service_schema("Yard renovation", RENO_SLUG, "Backyard and front yard renovations across Utah County: tear-out, grading, sprinklers, sod, curbing, rock, planting and retaining walls."), breadcrumb("Yard renovations", RENO_SLUG)]},
+    {"slug": CURB_SLUG, "file": CURB_SLUG, "fn": page_curbing,
+     "title": "Concrete Landscape Curbing in Utah County | Vessel Landscape",
+     "desc": "Concrete landscape curbing in Springville and across Utah County. Clean, permanent edges between lawn, rock and beds, for an existing yard or a full install. Free estimates.",
+     "schema": [service_schema("Concrete landscape curbing", CURB_SLUG, "Concrete landscape curbing and edging between lawns, rock beds and planters across Utah County."), breadcrumb("Landscape curbing", CURB_SLUG)]},
+    {"slug": INSTALL_SLUG, "file": INSTALL_SLUG, "fn": page_install,
+     "title": "Sprinkler System Installation in Utah County | Vessel Landscape",
+     "desc": "New sprinkler system installation in Springville and across Utah County: zones, valves, heads, drip and smart controllers for new builds and yard redos. Free estimates.",
+     "schema": [service_schema("Sprinkler system installation", INSTALL_SLUG, "New sprinkler and drip irrigation system installation across Utah County: zone layout, valves, heads, drip and smart controllers."), breadcrumb("Sprinkler installation", INSTALL_SLUG)]},
+    {"slug": CONCRETE_SLUG, "file": CONCRETE_SLUG, "fn": page_concrete,
+     "title": "Concrete Removal & Haul-Off in Utah County | Vessel Landscape",
+     "desc": "Concrete removal in Springville and across Utah County: old patios, walkways, slabs and driveway sections broken out and hauled away. Free estimates.",
+     "schema": [service_schema("Concrete removal", CONCRETE_SLUG, "Concrete patio, walkway, slab and driveway section removal and haul-off across Utah County."), breadcrumb("Concrete removal", CONCRETE_SLUG)]},
 ]
 
 def build():
