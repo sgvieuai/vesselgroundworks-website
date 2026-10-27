@@ -1355,7 +1355,22 @@ def page_concrete(link):
   </div>
 </section>
 
-<section class="section" aria-labelledby="khaul-h">
+<section class="section" aria-labelledby="kjob-h">
+  <div class="wrap split">
+    <div class="ba-pair">
+      <figure>{img("pool-deck-concrete-before", "Large concrete pool deck in a backyard before removal, with a skid steer ready to start", "(max-width: 860px) 50vw, 25vw")}<span class="tag">Before</span></figure>
+      <figure>{img("pool-deck-concrete-removed", "Same backyard with the concrete pool deck removed down to dirt, and a track loader beside the pool", "(max-width: 860px) 50vw, 25vw")}<span class="tag after">After</span></figure>
+    </div>
+    <div class="split-copy">
+      <p class="label">Recent job · Springville</p>
+      <h2 id="kjob-h">A pool deck, out and ready for pavers</h2>
+      <p>The owners wanted pavers around their pool instead of the old concrete deck. We broke the deck out around the pool, loaded it and hauled it off, so the space was clear for the new pavers.</p>
+      <p>Big slab or small walkway, it's the same process: protect what's staying, break out what's going, and leave the ground ready for the next step.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" aria-labelledby="khaul-h">
   <div class="wrap split">
     {img("excavation-haul-off-drone", "Aerial view of a mini excavator loading a dump truck during a front yard dig-out", "(max-width: 860px) 100vw, 50vw")}
     <div class="split-copy">
@@ -1367,7 +1382,7 @@ def page_concrete(link):
   </div>
 </section>
 
-<section class="section section-alt" aria-labelledby="knext-h">
+<section class="section" aria-labelledby="knext-h">
   <div class="wrap">
     <div class="section-head"><p class="label">What's next</p><h2 id="knext-h">What goes where the concrete was</h2></div>
     {fixes([
