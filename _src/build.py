@@ -735,7 +735,7 @@ def page_excavation(link):
     {fixes([
         ("Site prep for new yards", f'Old sod, soil and debris out, the ground cut down to the right depth, and the base ready for sod, rock or a <a class="textlink" href="{link(RENO_SLUG)}">full yard renovation</a>.'),
         ("Grading &amp; drainage", "Set the grade for lawns, patios and landscapes so water drains away from the house and goes where it should."),
-        ("Trenching", "Trenches for irrigation, drainage, utilities and landscape lines."),
+        ("Trenching &amp; utility sleeves", "Trenches for irrigation, drainage and landscape lines, plus sleeves for future utility lines like gas, so they can go in later without tearing up a driveway."),
         ("Concrete prep", "Dig-out, forms and compacted base for patios, walkways, pads, curbing and driveway extensions."),
         ("Retaining walls", f'Boulder and block walls, from the dig-out, base and drainage to the finished wall. <a class="textlink" href="{link(WALLS_SLUG)}">About retaining walls</a>'),
         ("Demo &amp; haul-off", f'Remove old concrete, soil, grass and rock, load it and haul it away. <a class="textlink" href="{link(CONCRETE_SLUG)}">Concrete removal</a>'),
@@ -755,7 +755,7 @@ def page_excavation(link):
         ("excavation-haul-off-drone", "Aerial view of a mini excavator loading a dump truck during a front yard dig-out", "Dig-out & haul-off"),
         ("excavator-trenching", "Excavator digging a trench at a new home site", "Trenching"),
         ("excavation-next-to-house", "Deep excavation beside a house with a skid steer nearby", "Excavation beside a home"),
-        ("boulder-wall-skid-steer", "Skid steer setting boulders for a rock wall", "Boulder wall"),
+        ("utility-sleeve-trench-park-city", "Trench with a white sleeve pipe for a future gas line, with a mini excavator by the street and fall aspens behind", "Gas line sleeve, Park City"),
         ("grading-with-mini-excavator", "Mini excavator grading a residential lot", "Grading"),
         ("crew-removing-concrete", "Crew breaking out and removing old concrete", "Concrete removal"),
     ])}</div>
@@ -764,7 +764,8 @@ def page_excavation(link):
 {reviews_section(["aaron", "brandon", "joshua"], "Solid work, done right")}
 {area_section()}
 {faq_section([
-    ("What size jobs do you take on?", f'Mostly residential: yards, side yards, driveway extensions, pads, trenches, retaining walls and <a class="textlink" href="{link(NEWBUILD_SLUG)}">full yards on new builds</a>. Larger projects can go anywhere along the Wasatch Front.'),
+    ("What size jobs do you take on?", f'Mostly residential: yards, side yards, driveway extensions, pads, trenches, retaining walls and <a class="textlink" href="{link(NEWBUILD_SLUG)}">full yards on new builds</a>. Larger projects can go anywhere along the Wasatch Front, and we\'ve worked as far as Park City.'),
+    ("Can you dig for utility lines or sleeves?", "Yes. We dig the trench and set sleeves for future lines like gas, water or power, so they can be pulled through later without cutting into a driveway or patio. The gas company, plumber or electrician runs the line itself."),
     ("Can you get equipment into my backyard?", "We use compact equipment like mini excavators and skid steers for residential work. Send a photo of your gate or side yard and we'll tell you what fits."),
     ("Will you prep for my concrete or landscape contractor?", "Yes. We do the dig-out, grading and base so the next trade starts on a solid, level base."),
     ("Do underground utilities get marked first?", "Yes. Before any digging, buried lines are marked through Blue Stakes of Utah, the state's 811 service."),
