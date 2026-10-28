@@ -403,7 +403,12 @@ def head_tags(p):
             f'<meta property="og:url" content="{url}"><meta property="og:image" content="{DOMAIN}/images/og-vessel-landscape.jpg">'
             f'<meta name="twitter:card" content="summary_large_image">'
             f'<meta name="theme-color" content="#1f3b2d">'
-            f'<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">'
+            # Google Search wants a square favicon bigger than 48px; absolute paths so every page points at the same files.
+            f'<link rel="icon" href="/favicon.ico" sizes="48x48">'
+            f'<link rel="icon" type="image/svg+xml" href="/images/favicon.svg">'
+            f'<link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96.png">'
+            f'<link rel="icon" type="image/png" sizes="192x192" href="/images/favicon-192.png">'
+            f'<link rel="apple-touch-icon" href="/apple-touch-icon.png">'
             + ld)
 
 def full_doc(p, body):
