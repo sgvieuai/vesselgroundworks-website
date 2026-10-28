@@ -409,6 +409,7 @@ def head_tags(p):
             f'<link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96.png">'
             f'<link rel="icon" type="image/png" sizes="192x192" href="/images/favicon-192.png">'
             f'<link rel="apple-touch-icon" href="/apple-touch-icon.png">'
+            + ('<meta name="msvalidate.01" content="0FE3F9A29D2C773288B219AD0D97D31B">' if p["slug"] == "" else "")  # Bing Webmaster Tools
             + ld)
 
 def full_doc(p, body):
