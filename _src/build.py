@@ -24,7 +24,7 @@ PHONE_DISPLAY = "(385) 398-9355"
 PHONE_TEL = "+13853989355"
 EMAIL = "sergio@vesselgroundworks.com"
 GOOGLE_REVIEWS = "https://www.google.com/maps?cid=12567048390870205497"
-REVIEW_COUNT = 21  # Google review count shown on the site; update as reviews come in
+REVIEW_COUNT = 22  # Google review count shown on the site; update as reviews come in
 FACEBOOK = "https://www.facebook.com/profile.php?id=61595151076525"
 INSTAGRAM = "https://www.instagram.com/vesselgroundworks"
 TOWNS = ["Springville", "Mapleton", "Spanish Fork", "Salem", "Payson", "Provo", "Orem"]
