@@ -15,7 +15,7 @@ Sergio sends phone videos (.MOV) and photos (.HEIC). Tools are in `_src/photos.p
 3. **Pull stills** with `photos.py still VIDEO START END OUT.png` (picks the sharpest frame in the window).
 4. **Crop on purpose.** Layouts crop with object-fit to 1:1 (gallery, desktop hero), 4:3, 3:4 (before/after, steps) and 4:5 (split sections), so frame portrait shots about 4:5 and landscape shots about 4:3 with the subject centered.
 5. **Privacy.** Crop people out where possible, especially faces. Blur house numbers, street signs, mailboxes with numbers and license plates (`--blur x0,y0,x1,y1` in source pixels; check at 3–4x zoom). Exported WebP files carry no GPS or EXIF.
-6. **Light grade only** (`photos.py export`): levels, gentle lift for dark shots, slight warmth on cold ones, a touch of contrast and color. It must still look real; drop `--color` (e.g. 0.9) for photos that are already very saturated. `photos.py regrade NAME` applies the same pass to a photo already on the site.
+6. **Light grade only** (`photos.py export`): levels, gentle lift for dark shots, slight warmth on cold ones, a touch of contrast and color. It must still look real; drop `--color` (e.g. 0.9) for photos that are already very saturated. `photos.py regrade NAME` applies the same pass to a photo already on the site. Never grade on top of a photo Sergio already edited (he sometimes boosts in Lightroom); grade his unedited original instead, or leave his edit as is (`xeriscape-side-yard-sod-rock-border` is his edit).
 7. **Look at every final image** before it goes on a page, then screenshot the page (desktop and phone) after building.
 8. **Publish and verify**: commit, push, wait for the Pages deploy, then load the live page.
 
