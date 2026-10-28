@@ -22,7 +22,7 @@ OLD_NAMES = ["Utah Sprinkler Guy", "Vessel Groundworks"]  # past names, only in 
 REPAIR_RATE = 95  # sprinkler repair labor, $/hour, plus parts, 1-hour minimum
 PHONE_DISPLAY = "(385) 398-9355"
 PHONE_TEL = "+13853989355"
-EMAIL = "sergio@vesselgroundworks.com"
+EMAIL = "sergio@vessellandscape.com"
 GOOGLE_REVIEWS = "https://www.google.com/maps?cid=12567048390870205497"
 REVIEW_COUNT = 22  # Google review count shown on the site; update as reviews come in
 FACEBOOK = "https://www.facebook.com/profile.php?id=61595151076525"

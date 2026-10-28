@@ -4,7 +4,7 @@ Static site for Vessel Landscape (Sergio Garcia, Springville, Utah), live at htt
 
 - Edit `_src/build.py` (pages, copy, schema) and `_src/styles.css`, then run `python3 _src/build.py` from the repo root. It writes the HTML, `404.html`, `sitemap.xml` and `robots.txt` here. Bump `LASTMOD` when page content changes and keep `REVIEW_COUNT` matching Google.
 - Standing decisions: keep the nav uncluttered (services live in the Services dropdown), no blog, no mention of permits or engineering in site copy, plain short wording.
-- Old domain vesselgroundworks.com redirects page-by-page from the separate repo `sgvieuai/vesselgroundworks-redirect`. Email for that domain runs on Microsoft 365, so never touch its MX, SPF or autodiscover records.
+- Old domain vesselgroundworks.com redirects page-by-page from the separate repo `sgvieuai/vesselgroundworks-redirect`. Email runs on Microsoft 365 for both domains (primary address sergio@vessellandscape.com, old address still delivers), so never touch the MX, SPF or autodiscover records on either domain.
 
 ## Job photos (Sergio's standing rule: every photo gets this treatment)
 
