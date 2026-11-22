@@ -15,7 +15,7 @@ REPO_MODE = os.path.exists(os.path.join(ROOT, "CNAME"))
 SITE = ROOT if REPO_MODE else os.path.join(ROOT, "site")
 PREVIEW = os.path.join(ROOT, "preview")
 DOMAIN = "https://vessellandscape.com"
-LASTMOD = "2026-10-27"  # sitemap date; bump when page content changes
+LASTMOD = "2026-11-21"  # sitemap date; bump when page content changes
 BRAND = "Vessel Landscape"
 OLD_NAMES = ["Utah Sprinkler Guy", "Vessel Groundworks"]  # past names, only in schema so Google connects them
 
@@ -805,11 +805,11 @@ def page_blowout(link):
 <main id="main">
 {service_hero("Sprinkler blowouts", "Fall winterizing", 'Sprinkler blowouts &amp; winterization <span class="hl">in Utah County</span>',
    "Water left in your lines freezes, expands and cracks pipe, fittings and valves. We blow out every zone with compressed air before the hard freezes, so your system starts clean in spring.",
-   "sprinkler-valve-box-service", "Opened sprinkler valve box with valves and wiring", "Valve box service · Utah County", link)}
+   "sprinkler-blowout-mountain-view-yard", "Compressed air clearing sprinkler heads across a backyard lawn with snowy mountains behind", "Blowout in progress · Utah County", link)}
 
 <section class="section section-alt" aria-labelledby="when-h">
   <div class="wrap split">
-    {img("green-lawn-after-sprinkler-repair", "Healthy green backyard lawn with even sprinkler coverage", "(max-width: 860px) 100vw, 50vw")}
+    {img("sprinkler-blowout-backyard-wall", "Mist from a sprinkler blowout drifting along a stone block wall over a striped lawn", "(max-width: 860px) 100vw, 50vw")}
     <div class="split-copy">
       <p class="label">Timing</p>
       <h2 id="when-h">After the water's off, before the hard freeze</h2>
@@ -832,6 +832,11 @@ def page_blowout(link):
         ("Protect the backflow", "The backflow preventer sits above ground, so it's usually the first part to crack in a freeze. We make sure it's empty."),
         ("Notes for spring", "If we spot a broken head, a leak or a bad valve while we're there, we tell you so it gets fixed before the season starts."),
     ])}
+    <div style="margin-top:clamp(28px,4vw,44px)">{gallery([
+        ("sprinkler-blowout-head-close-up", "Pop-up sprinkler head pushing out air and mist during a blowout", "Air through every head"),
+        ("sprinkler-blowout-compressor-truck", "Tow-behind 185 CFM air compressor hooked to a work truck outside a brick home", "185 CFM tow-behind compressor"),
+        ("sprinkler-valve-box-service", "Opened sprinkler valve box with valves and wiring", "Valves cleared too"),
+    ])}</div>
   </div>
 </section>
 {reviews_section(["mason", "kasha", "bryce"], "Utah County's sprinkler guy")}
